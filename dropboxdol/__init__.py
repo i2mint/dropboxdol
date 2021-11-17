@@ -1,3 +1,7 @@
+"""
+Access dropbox with dict-like interface.
+
+"""
 from dropbox import Dropbox
 from dropbox.files import DownloadError
 from dropbox.files import LookupError as DropboxLookupError
