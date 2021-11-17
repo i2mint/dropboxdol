@@ -155,15 +155,15 @@ def _multi_test(store):
 
 
 def test_dropbox():
-    from py2store.util import ModuleNotFoundIgnore
+    from dol.util import ModuleNotFoundIgnore
 
     with ModuleNotFoundIgnore():
-        from py2store.access import FAK
-        from py2store.stores.dropbox_store import DropboxTextStore
+        from dropboxdol import DropboxTextStore
         import json
         import os
 
         try:
+            FAK = '$fak'
             filepath = os.path.expanduser(
                 '~/.py2store_configs/stores/json/dropbox.json'
             )
