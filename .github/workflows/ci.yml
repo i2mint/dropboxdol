@@ -2,6 +2,10 @@ name: Continuous Integration
 on: [push, pull_request]
 env:
   PROJECT_NAME: dropboxdol
+  TEST_DROPBOX_ACCESS_TOKEN: ${{ secrets.TEST_DROPBOX_ACCESS_TOKEN }}
+  TEST_DROPBOX_REFRESH_TOKEN: ${{ secrets.TEST_DROPBOX_REFRESH_TOKEN }}
+  TEST_DROPBOX_APP_KEY: ${{ secrets.TEST_DROPBOX_APP_KEY }}
+  TEST_DROPBOX_APP_SECRET: ${{ secrets.TEST_DROPBOX_APP_SECRET }}
 
 jobs:
   validation:
