@@ -13,14 +13,116 @@ Additionally, that token should be allowed to do the operation that you are doin
 For example, you only need the "sharing.write" permission to CREATE a (new) shared link. 
 
 See more information in [Dropbox's Auth Guide](https://developers.dropbox.com/oauth-guide). 
-Essentially, you need to make an "app" [here](https://www.dropbox.com/developers/apps) and get a token for it. 
-No worries, it's quick and easy (just give the "app" a name) and give it a scope and permissions, 
-then generate your token (and put it somewhere safe).
 
-By default, `dropboxdol` looks for the access token in the `DROPBOX_ACCESS_TOKEN` environment variable. You can put your token there for easy interactions, but you can also specify another environment variable, or the access token itself, in the `access_token` argument of the functions and classes that need it. First, `dropboxdol` will look for the `access_token` string you gave it in the environment variables, and if it doesn't find it, it will assume you gave it the access token itself.
 
+By default, `dropboxdol` looks for the access tokens and other information is 
+(well, really, the dropbox API) needs)
+in the `"default_dropbox_config.json"` file of the dropboxdol app data. 
+You can interact with those files via `dropboxdol.config_store`, which has a dict-like interface to the files in that folder. 
+
+If you don't have a `"default_dropbox_config.json"` file, you'll need to specify the 
+connection config explicitly (by specifying a config dict, a filepath, filename of the 
+`config_store`).
+
+Note that at this point, dropbox only dishes out temporary access tokens.
+This means you can't just save an access token once and be over with it. 
+So to get the convenience of automatic connections, you'll need to specify not only a 
+`oauth2_access_token`, but also a `oauth2_refresh_token`, an `app_key` and an `app_secret`. 
+
+You can read all about that annoying stuff in the [Dropbox's Auth Guide](https://developers.dropbox.com/oauth-guide).
+
+But here's a few things to make it a bit less painful:
+* make an "app" in the [app console](https://www.dropbox.com/developers/apps?_tk=pilot_lp&_ad=topbar4&_camp=myapps)
+* specify scope and permissions you want on it
+* note down the app key and the app secret
+
+then use the following, which will walk you through the steps to get your access and refresh tokens.
+
+These will then be stored in the `config_file` of your choice, so that all you have to 
+do is mention the file to get the connection.
+
+```python
+from dropboxdol import create_config_file
+
+create_config_file(
+    config_file='NAME_OF_YOUR_APP_OR_WHATEVER_NAME_YOU_WILL_REMEMBER.json',
+    app_key='YOUR_APP_KEY', 
+    app_secret='YOUR_APP_SECRET',
+)
+```
+
+If you already have a config file for this app, with app_key and app_secret, 
+you can update the tokens by doing this:
+
+```python
+from dropboxdol import complete_config_file_with_refresh_token
+
+complete_config_file_with_refresh_token(
+    config_file='NAME_OF_YOUR_APP_OR_WHATEVER_YOU_CALLED_THAT_CONFIG.json',
+)
+```
+
+If you want to edit some configs, you can do so by editing the file directly, or use 
+`create_or_edit_config_file`.
+
+```python
+from dropboxdol import create_or_edit_config_file
+
+create_or_edit_config_file(
+    config_file='CONFIG_FILE.json',
+    # whatever edits you want to make... (specifying None will skip that config, leaving it unchanged)
+    oauth2_access_token=None,
+    oauth2_refresh_token=None,
+    app_key=None,
+    app_secret=None,
+)
+```
 
 # Examples 
+
+
+## Get a dropbox "store"
+
+### From a link
+
+```python
+from dropboxdol import DropboxLinkReaderWithToken
+
+s = DropboxLinkReaderWithToken(
+    url="https://www.dropbox.com/sh/0ru09jmk0w9tdnr/AAA-PPON2sYmwUUoGQpBQh1Ia?dl=0"
+)
+keys = list(s)
+keys
+```
+
+    ['inner_folder',
+    'b1467f55540c4695bf483bc542e43256',
+    '0b98e2af76c94a0a9cc2808866dd62de',
+    '3372aa35ea444c758bfa2e4599b2576d',
+    '9de9d98a4c4648cca1bc1131c307a365',
+    '91c744890d374dd8bc914f1153311b0c',
+    '57af886dd22f4a23a678a3de3eb996a0',
+    '43ba127e5e9245ec983c9f39e4ed7306']
+
+
+### From a local path (but talking to the remote files)
+
+```python
+from dropboxdol import DropboxFiles
+from i2 import Sig 
+
+t = DropboxFiles('/Apps/py2store/py2store_data')
+list(t)
+```
+
+    ['/test', '/test.txt', '/another_test.txt']
+
+```python
+t['/test.txt']
+```
+
+    b'This is a test.\nSee it work.\nAnd what about unicode? \xc3\xa8\xc3\xa9\xc3\xaa\xc3\xab\xc4\x93\xc4\x97\xc4\x99?'
+
 
 ## Get dropbox links for local files/folders
 
