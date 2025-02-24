@@ -161,7 +161,7 @@ class DropboxPersister(Persister):
 
     def __init__(
         self,
-        rootdir='',
+        rootdir="",
         *,
         connection_config=DFLT_CONFIG_FILE,
         files_upload_kwargs=None,

@@ -19,7 +19,7 @@ def get_tokens_interactive(app_key: str, app_secret: str):
       A tuple (access_token, refresh_token)
     """
     flow = dropbox.DropboxOAuth2FlowNoRedirect(
-        app_key, app_secret, token_access_type='offline'
+        app_key, app_secret, token_access_type="offline"
     )
     authorize_url = flow.start()
     print("1. Go to: " + authorize_url)
@@ -133,7 +133,7 @@ def config_file_to_dict(config_filepath: str) -> dict:
                 "Please ensure it exists."
             )
 
-    with open(config_filepath, 'rt') as f:
+    with open(config_filepath, "rt") as f:
         config = json.load(f)
 
     return config
@@ -184,8 +184,8 @@ def create_or_edit_config_file(
 
 def complete_config_file_with_refresh_token(config_file):
     config = config_store[config_file]
-    app_key = config['app_key']
-    app_secret = config['app_secret']
+    app_key = config["app_key"]
+    app_secret = config["app_secret"]
 
     access_token, refresh_token = get_tokens_interactive(app_key, app_secret)
 
@@ -212,7 +212,7 @@ def create_config_file(
     If oauth2_refresh_token is not given, an interactive flow will be used to obtain it,
     also replacing the oauth2_access_token.
     """
-    assert config_file.endswith('.json'), "Config file must end with '.json'"
+    assert config_file.endswith(".json"), "Config file must end with '.json'"
     if config_file in config_store:
         raise FileExistsError(
             f"Configuration file '{config_file}' already exists. "
@@ -259,7 +259,7 @@ def get_client_from_config_file(config_filepath: str) -> dropbox.Dropbox:
 
     token, refresh, key, secret = map(
         config.get,
-        ('oauth2_access_token', 'oauth2_refresh_token', 'app_key', 'app_secret'),
+        ("oauth2_access_token", "oauth2_refresh_token", "app_key", "app_secret"),
     )
 
     if not token or not refresh or not key or not secret:

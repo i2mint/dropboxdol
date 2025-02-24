@@ -18,20 +18,20 @@ from dropbox.sharing import SharedLinkSettings, RequestedVisibility
 DFLT_CONFIG_FILE = "default_dropbox_config.json"  # Default config file name
 
 # get app data dir path and ensure it exists
-pkg_name = 'dropboxdol'
-data_files = files(pkg_name) / 'data'
+pkg_name = "dropboxdol"
+data_files = files(pkg_name) / "data"
 
-app_data_dir = os.environ.get(f'{pkg_name.upper()}_APP_DATA_DIR', None)
+app_data_dir = os.environ.get(f"{pkg_name.upper()}_APP_DATA_DIR", None)
 if app_data_dir is None:
     app_data_dir = get_app_data_folder(pkg_name, ensure_exists=True)
 
 djoin = partial(os.path.join, app_data_dir)
 config_dir = dol.ensure_dir(
-    djoin('config'), verbose=f'Making config dir: {djoin("config")}'
+    djoin("config"), verbose=f'Making config dir: {djoin("config")}'
 )
 config_join = partial(os.path.join, config_dir)
 
-config_store = dol.JsonFiles(config_join(''))
+config_store = dol.JsonFiles(config_join(""))
 
 
 # def get_access_token(token_key: str = DFLT_ACCESS_TOKEN) -> str:
@@ -67,7 +67,6 @@ def get_config_val(config_key: str) -> str:
             "lowercase or mixed case."
         )
     return config_key
-
 
 
 def get_local_full_path(
