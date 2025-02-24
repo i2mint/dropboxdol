@@ -12,7 +12,10 @@ Note: To use `dropboxdol`, you'll need to have a dropbox access token.
 Additionally, that token should be allowed to do the operation that you are doing. 
 For example, you only need the "sharing.write" permission to CREATE a (new) shared link. 
 
-See more information in [Dropbox's Auth Guide](https://developers.dropbox.com/oauth-guide). Essentially, you need to make an "app" and get a token for it. No worries, it's quick and easy (just give the "app" a name) and give it a scope and permissions, then generate your token (and put it somewhere safe).
+See more information in [Dropbox's Auth Guide](https://developers.dropbox.com/oauth-guide). 
+Essentially, you need to make an "app" [here](https://www.dropbox.com/developers/apps) and get a token for it. 
+No worries, it's quick and easy (just give the "app" a name) and give it a scope and permissions, 
+then generate your token (and put it somewhere safe).
 
 By default, `dropboxdol` looks for the access token in the `DROPBOX_ACCESS_TOKEN` environment variable. You can put your token there for easy interactions, but you can also specify another environment variable, or the access token itself, in the `access_token` argument of the functions and classes that need it. First, `dropboxdol` will look for the `access_token` string you gave it in the environment variables, and if it doesn't find it, it will assume you gave it the access token itself.
 

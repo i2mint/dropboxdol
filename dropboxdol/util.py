@@ -2,29 +2,77 @@
 
 import os
 import re
+from functools import partial
 from typing import Tuple
+from config2py import get_app_data_folder
+from importlib.resources import files
+from warnings import warn
+import json
 
+import dol
 import dropbox
 from dropbox.exceptions import ApiError, AuthError
 from dropbox.sharing import SharedLinkSettings, RequestedVisibility
 
-DFLT_ACCESS_TOKEN = "DROPBOX_ACCESS_TOKEN"  # Default key to look for in os.environ
+# DFLT_ACCESS_TOKEN = "DROPBOX_ACCESS_TOKEN"  # Default key to look for in os.environ
+DFLT_CONFIG_FILE = "default_dropbox_config.json"  # Default config file name
+
+# get app data dir path and ensure it exists
+pkg_name = 'dropboxdol'
+data_files = files(pkg_name) / 'data'
+
+app_data_dir = os.environ.get(f'{pkg_name.upper()}_APP_DATA_DIR', None)
+if app_data_dir is None:
+    app_data_dir = get_app_data_folder(pkg_name, ensure_exists=True)
+
+djoin = partial(os.path.join, app_data_dir)
+config_dir = dol.ensure_dir(
+    djoin('config'), verbose=f'Making config dir: {djoin("config")}'
+)
+config_join = partial(os.path.join, config_dir)
+
+config_store = dol.JsonFiles(config_join(''))
 
 
-def get_access_token(token_key: str = DFLT_ACCESS_TOKEN) -> str:
+# def get_access_token(token_key: str = DFLT_ACCESS_TOKEN) -> str:
+#     """
+#     Retrieve the Dropbox access token.
+
+#     First, attempts to get the token from os.environ using the given key.
+#     If not found, returns the token_key itself.
+#     """
+#     if token_key is None:
+#         token_key = DFLT_ACCESS_TOKEN
+#     env_token = os.environ.get(token_key)
+#     if env_token:
+#         return env_token
+#     return token_key
+
+
+def get_config_val(config_key: str) -> str:
     """
-    Retrieve the Dropbox access token.
+    Retrieve a configuration value.
 
-    First, attempts to get the token from os.environ using the given key.
-    If not found, returns the token_key itself.
+    First checks os.environ for the given key. If present, returns its value;
+    otherwise, returns the key itself (allowing you to pass literal values).
     """
-    env_token = os.environ.get(token_key)
-    if env_token:
-        return env_token
-    return token_key
+    config_val = os.environ.get(config_key)
+    if config_val:
+        return config_val
+    if config_key.isupper():
+        warn(
+            "Your config_key is all uppercase, which is typically used for environment "
+            "variables. But no such variable was found, so I'll consider this a "
+            "literal value. If you intended to pass a literal value, consider using "
+            "lowercase or mixed case."
+        )
+    return config_key
 
 
-def get_local_full_path(path: str, dropbox_local_rootdir: str = None) -> Tuple[str, str]:
+
+def get_local_full_path(
+    path: str, dropbox_local_rootdir: str = None
+) -> Tuple[str, str]:
     """
     Determine the absolute local file path and the local Dropbox folder.
 
