@@ -5,7 +5,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>dropboxdol.tests.test_dropbox &mdash; dropboxdol 0.0.3 documentation</title>
+  <title>dropboxdol.tests.test_dropbox &mdash; dropboxdol 0.0.4 documentation</title>
       <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=b86133f3" />
       <link rel="stylesheet" type="text/css" href="../../../_static/css/theme.css?v=e59714d7" />
       <link rel="stylesheet" type="text/css" href="../../../_static/copybutton.css?v=76b2166b" />
@@ -14,7 +14,7 @@
   
       <script src="../../../_static/jquery.js?v=5d32c60e"></script>
       <script src="../../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
-      <script src="../../../_static/documentation_options.js?v=47de8214"></script>
+      <script src="../../../_static/documentation_options.js?v=8c5712d9"></script>
       <script src="../../../_static/doctools.js?v=9bcbadda"></script>
       <script src="../../../_static/sphinx_highlight.js?v=dc90522c"></script>
       <script src="../../../_static/toggleprompt.js?v=d7ede5d2"></script>
@@ -152,101 +152,101 @@
 <span class="k">def</span><span class="w"> </span><span class="nf">_test_ops_on_store</span><span class="p">(</span><span class="n">store</span><span class="p">):</span>
     <span class="n">s</span> <span class="o">=</span> <span class="n">store</span>  <span class="c1"># just to be able to use shorthand &quot;s&quot;</span>
 
-    <span class="n">_delete_keys_from_store</span><span class="p">(</span><span class="n">s</span><span class="p">,</span> <span class="p">[</span><span class="s1">&#39;_foo&#39;</span><span class="p">,</span> <span class="s1">&#39;_hello&#39;</span><span class="p">,</span> <span class="s1">&#39;_non_existing_key_&#39;</span><span class="p">])</span>
+    <span class="n">_delete_keys_from_store</span><span class="p">(</span><span class="n">s</span><span class="p">,</span> <span class="p">[</span><span class="s2">&quot;_foo&quot;</span><span class="p">,</span> <span class="s2">&quot;_hello&quot;</span><span class="p">,</span> <span class="s2">&quot;_non_existing_key_&quot;</span><span class="p">])</span>
 
     <span class="c1"># test &quot;not in&quot;</span>
     <span class="k">assert</span> <span class="p">(</span>
-        <span class="s1">&#39;_non_existing_key_&#39;</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">s</span>
+        <span class="s2">&quot;_non_existing_key_&quot;</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">s</span>
     <span class="p">),</span> <span class="s2">&quot;I really wasn&#39;t expecting that key to be in there!&quot;</span>
 
-    <span class="n">s</span><span class="p">[</span><span class="s1">&#39;_foo&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="s1">&#39;bar&#39;</span>  <span class="c1"># store &#39;bar&#39; in &#39;_foo&#39;</span>
-    <span class="k">assert</span> <span class="s1">&#39;_foo&#39;</span> <span class="ow">in</span> <span class="n">s</span><span class="p">,</span> <span class="s1">&#39;&quot;_foo&quot; in s&#39;</span>
-    <span class="k">assert</span> <span class="n">s</span><span class="p">[</span><span class="s1">&#39;_foo&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="s1">&#39;bar&#39;</span>
+    <span class="n">s</span><span class="p">[</span><span class="s2">&quot;_foo&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&quot;bar&quot;</span>  <span class="c1"># store &#39;bar&#39; in &#39;_foo&#39;</span>
+    <span class="k">assert</span> <span class="s2">&quot;_foo&quot;</span> <span class="ow">in</span> <span class="n">s</span><span class="p">,</span> <span class="s1">&#39;&quot;_foo&quot; in s&#39;</span>
+    <span class="k">assert</span> <span class="n">s</span><span class="p">[</span><span class="s2">&quot;_foo&quot;</span><span class="p">]</span> <span class="o">==</span> <span class="s2">&quot;bar&quot;</span>
 
-    <span class="n">s</span><span class="p">[</span><span class="s1">&#39;_hello&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="s1">&#39;world&#39;</span>  <span class="c1"># store &#39;world&#39; in &#39;_hello&#39;</span>
+    <span class="n">s</span><span class="p">[</span><span class="s2">&quot;_hello&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&quot;world&quot;</span>  <span class="c1"># store &#39;world&#39; in &#39;_hello&#39;</span>
 
-    <span class="k">if</span> <span class="nb">hasattr</span><span class="p">(</span><span class="n">s</span><span class="p">,</span> <span class="s1">&#39;keys&#39;</span><span class="p">):</span>
-        <span class="k">assert</span> <span class="nb">set</span><span class="p">(</span><span class="n">s</span><span class="o">.</span><span class="n">keys</span><span class="p">())</span><span class="o">.</span><span class="n">issuperset</span><span class="p">({</span><span class="s1">&#39;_foo&#39;</span><span class="p">,</span> <span class="s1">&#39;_hello&#39;</span><span class="p">})</span>
-    <span class="k">if</span> <span class="nb">hasattr</span><span class="p">(</span><span class="n">s</span><span class="p">,</span> <span class="s1">&#39;values&#39;</span><span class="p">):</span>
-        <span class="k">assert</span> <span class="nb">set</span><span class="p">(</span><span class="n">s</span><span class="o">.</span><span class="n">values</span><span class="p">())</span><span class="o">.</span><span class="n">issuperset</span><span class="p">({</span><span class="s1">&#39;bar&#39;</span><span class="p">,</span> <span class="s1">&#39;world&#39;</span><span class="p">})</span>
-    <span class="k">if</span> <span class="nb">hasattr</span><span class="p">(</span><span class="n">s</span><span class="p">,</span> <span class="s1">&#39;items&#39;</span><span class="p">):</span>
-        <span class="k">assert</span> <span class="nb">set</span><span class="p">(</span><span class="n">s</span><span class="o">.</span><span class="n">items</span><span class="p">())</span><span class="o">.</span><span class="n">issuperset</span><span class="p">({(</span><span class="s1">&#39;_foo&#39;</span><span class="p">,</span> <span class="s1">&#39;bar&#39;</span><span class="p">),</span> <span class="p">(</span><span class="s1">&#39;_hello&#39;</span><span class="p">,</span> <span class="s1">&#39;world&#39;</span><span class="p">)})</span>
-    <span class="k">if</span> <span class="nb">hasattr</span><span class="p">(</span><span class="n">s</span><span class="p">,</span> <span class="s1">&#39;get&#39;</span><span class="p">):</span>
+    <span class="k">if</span> <span class="nb">hasattr</span><span class="p">(</span><span class="n">s</span><span class="p">,</span> <span class="s2">&quot;keys&quot;</span><span class="p">):</span>
+        <span class="k">assert</span> <span class="nb">set</span><span class="p">(</span><span class="n">s</span><span class="o">.</span><span class="n">keys</span><span class="p">())</span><span class="o">.</span><span class="n">issuperset</span><span class="p">({</span><span class="s2">&quot;_foo&quot;</span><span class="p">,</span> <span class="s2">&quot;_hello&quot;</span><span class="p">})</span>
+    <span class="k">if</span> <span class="nb">hasattr</span><span class="p">(</span><span class="n">s</span><span class="p">,</span> <span class="s2">&quot;values&quot;</span><span class="p">):</span>
+        <span class="k">assert</span> <span class="nb">set</span><span class="p">(</span><span class="n">s</span><span class="o">.</span><span class="n">values</span><span class="p">())</span><span class="o">.</span><span class="n">issuperset</span><span class="p">({</span><span class="s2">&quot;bar&quot;</span><span class="p">,</span> <span class="s2">&quot;world&quot;</span><span class="p">})</span>
+    <span class="k">if</span> <span class="nb">hasattr</span><span class="p">(</span><span class="n">s</span><span class="p">,</span> <span class="s2">&quot;items&quot;</span><span class="p">):</span>
+        <span class="k">assert</span> <span class="nb">set</span><span class="p">(</span><span class="n">s</span><span class="o">.</span><span class="n">items</span><span class="p">())</span><span class="o">.</span><span class="n">issuperset</span><span class="p">({(</span><span class="s2">&quot;_foo&quot;</span><span class="p">,</span> <span class="s2">&quot;bar&quot;</span><span class="p">),</span> <span class="p">(</span><span class="s2">&quot;_hello&quot;</span><span class="p">,</span> <span class="s2">&quot;world&quot;</span><span class="p">)})</span>
+    <span class="k">if</span> <span class="nb">hasattr</span><span class="p">(</span><span class="n">s</span><span class="p">,</span> <span class="s2">&quot;get&quot;</span><span class="p">):</span>
         <span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="n">s</span><span class="p">:</span>
             <span class="k">assert</span> <span class="n">s</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">k</span><span class="p">)</span> <span class="o">==</span> <span class="n">s</span><span class="p">[</span><span class="n">k</span><span class="p">]</span>
-        <span class="k">assert</span> <span class="n">s</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;_hello&#39;</span><span class="p">)</span> <span class="o">==</span> <span class="s1">&#39;world&#39;</span>
-        <span class="k">assert</span> <span class="n">s</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;_non_existing_key_&#39;</span><span class="p">,</span> <span class="s1">&#39;some default&#39;</span><span class="p">)</span> <span class="o">==</span> <span class="s1">&#39;some default&#39;</span>
-        <span class="k">assert</span> <span class="n">s</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;_non_existing_key_&#39;</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span> <span class="ow">is</span> <span class="kc">None</span>
-    <span class="k">if</span> <span class="nb">hasattr</span><span class="p">(</span><span class="n">s</span><span class="p">,</span> <span class="s1">&#39;setdefault&#39;</span><span class="p">):</span>
-        <span class="k">assert</span> <span class="n">s</span><span class="o">.</span><span class="n">setdefault</span><span class="p">(</span><span class="s1">&#39;_hello&#39;</span><span class="p">,</span> <span class="s1">&#39;this_will_never_be_used&#39;</span><span class="p">)</span> <span class="o">==</span> <span class="s1">&#39;world&#39;</span>
-        <span class="k">assert</span> <span class="n">s</span><span class="o">.</span><span class="n">setdefault</span><span class="p">(</span><span class="s1">&#39;_non_existing_key_&#39;</span><span class="p">,</span> <span class="s1">&#39;this_will&#39;</span><span class="p">)</span> <span class="o">==</span> <span class="s1">&#39;this_will&#39;</span>
-        <span class="k">assert</span> <span class="n">s</span><span class="p">[</span><span class="s1">&#39;_non_existing_key_&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="s1">&#39;this_will&#39;</span>
-        <span class="k">del</span> <span class="n">s</span><span class="p">[</span><span class="s1">&#39;_non_existing_key_&#39;</span><span class="p">]</span>
+        <span class="k">assert</span> <span class="n">s</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;_hello&quot;</span><span class="p">)</span> <span class="o">==</span> <span class="s2">&quot;world&quot;</span>
+        <span class="k">assert</span> <span class="n">s</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;_non_existing_key_&quot;</span><span class="p">,</span> <span class="s2">&quot;some default&quot;</span><span class="p">)</span> <span class="o">==</span> <span class="s2">&quot;some default&quot;</span>
+        <span class="k">assert</span> <span class="n">s</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;_non_existing_key_&quot;</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span> <span class="ow">is</span> <span class="kc">None</span>
+    <span class="k">if</span> <span class="nb">hasattr</span><span class="p">(</span><span class="n">s</span><span class="p">,</span> <span class="s2">&quot;setdefault&quot;</span><span class="p">):</span>
+        <span class="k">assert</span> <span class="n">s</span><span class="o">.</span><span class="n">setdefault</span><span class="p">(</span><span class="s2">&quot;_hello&quot;</span><span class="p">,</span> <span class="s2">&quot;this_will_never_be_used&quot;</span><span class="p">)</span> <span class="o">==</span> <span class="s2">&quot;world&quot;</span>
+        <span class="k">assert</span> <span class="n">s</span><span class="o">.</span><span class="n">setdefault</span><span class="p">(</span><span class="s2">&quot;_non_existing_key_&quot;</span><span class="p">,</span> <span class="s2">&quot;this_will&quot;</span><span class="p">)</span> <span class="o">==</span> <span class="s2">&quot;this_will&quot;</span>
+        <span class="k">assert</span> <span class="n">s</span><span class="p">[</span><span class="s2">&quot;_non_existing_key_&quot;</span><span class="p">]</span> <span class="o">==</span> <span class="s2">&quot;this_will&quot;</span>
+        <span class="k">del</span> <span class="n">s</span><span class="p">[</span><span class="s2">&quot;_non_existing_key_&quot;</span><span class="p">]</span>
 
     <span class="c1"># test &quot;not in&quot; when there&#39;s something</span>
     <span class="k">assert</span> <span class="p">(</span>
-        <span class="s1">&#39;_non_existing_key_&#39;</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">s</span>
+        <span class="s2">&quot;_non_existing_key_&quot;</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">s</span>
     <span class="p">),</span> <span class="s2">&quot;I really wasn&#39;t expecting that key to be in there!&quot;</span>
 
     <span class="c1"># wraped in try/except in case deleting is not allowed</span>
     <span class="k">try</span><span class="p">:</span>
         <span class="c1"># testing deletion</span>
-        <span class="k">del</span> <span class="n">s</span><span class="p">[</span><span class="s1">&#39;_hello&#39;</span><span class="p">]</span>  <span class="c1"># delet _hello</span>
-        <span class="k">assert</span> <span class="s1">&#39;_hello&#39;</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">s</span>
-        <span class="n">s</span><span class="p">[</span><span class="s1">&#39;_hello&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="s1">&#39;world&#39;</span>  <span class="c1"># put it back</span>
+        <span class="k">del</span> <span class="n">s</span><span class="p">[</span><span class="s2">&quot;_hello&quot;</span><span class="p">]</span>  <span class="c1"># delet _hello</span>
+        <span class="k">assert</span> <span class="s2">&quot;_hello&quot;</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">s</span>
+        <span class="n">s</span><span class="p">[</span><span class="s2">&quot;_hello&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&quot;world&quot;</span>  <span class="c1"># put it back</span>
 
-        <span class="k">if</span> <span class="nb">hasattr</span><span class="p">(</span><span class="n">s</span><span class="p">,</span> <span class="s1">&#39;pop&#39;</span><span class="p">):</span>
-            <span class="n">v</span> <span class="o">=</span> <span class="n">s</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s1">&#39;_hello&#39;</span><span class="p">)</span>
-            <span class="k">assert</span> <span class="n">v</span> <span class="o">==</span> <span class="s1">&#39;world&#39;</span>
-            <span class="k">assert</span> <span class="s1">&#39;_hello&#39;</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">s</span>
-            <span class="n">s</span><span class="p">[</span><span class="s1">&#39;_hello&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="s1">&#39;world&#39;</span>  <span class="c1"># put it back</span>
+        <span class="k">if</span> <span class="nb">hasattr</span><span class="p">(</span><span class="n">s</span><span class="p">,</span> <span class="s2">&quot;pop&quot;</span><span class="p">):</span>
+            <span class="n">v</span> <span class="o">=</span> <span class="n">s</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s2">&quot;_hello&quot;</span><span class="p">)</span>
+            <span class="k">assert</span> <span class="n">v</span> <span class="o">==</span> <span class="s2">&quot;world&quot;</span>
+            <span class="k">assert</span> <span class="s2">&quot;_hello&quot;</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">s</span>
+            <span class="n">s</span><span class="p">[</span><span class="s2">&quot;_hello&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&quot;world&quot;</span>  <span class="c1"># put it back</span>
     <span class="k">except</span> <span class="n">DeletionsNotAllowed</span><span class="p">:</span>
         <span class="k">pass</span>
 
     <span class="c1"># wraped in try/except in case overwriting is not allowed</span>
     <span class="k">try</span><span class="p">:</span>
-        <span class="n">s</span><span class="p">[</span><span class="s1">&#39;_foo&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="s1">&#39;a different value&#39;</span>
-        <span class="k">assert</span> <span class="n">s</span><span class="p">[</span><span class="s1">&#39;_foo&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="s1">&#39;a different value&#39;</span>
+        <span class="n">s</span><span class="p">[</span><span class="s2">&quot;_foo&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&quot;a different value&quot;</span>
+        <span class="k">assert</span> <span class="n">s</span><span class="p">[</span><span class="s2">&quot;_foo&quot;</span><span class="p">]</span> <span class="o">==</span> <span class="s2">&quot;a different value&quot;</span>
     <span class="k">except</span> <span class="n">OverWritesNotAllowedError</span><span class="p">:</span>
         <span class="k">pass</span>
 
-    <span class="n">_delete_keys_from_store</span><span class="p">(</span><span class="n">s</span><span class="p">,</span> <span class="p">[</span><span class="s1">&#39;_foo&#39;</span><span class="p">,</span> <span class="s1">&#39;_hello&#39;</span><span class="p">])</span>
+    <span class="n">_delete_keys_from_store</span><span class="p">(</span><span class="n">s</span><span class="p">,</span> <span class="p">[</span><span class="s2">&quot;_foo&quot;</span><span class="p">,</span> <span class="s2">&quot;_hello&quot;</span><span class="p">])</span>
 
 
 <span class="k">def</span><span class="w"> </span><span class="nf">_test_len</span><span class="p">(</span><span class="n">store</span><span class="p">):</span>
     <span class="n">s</span> <span class="o">=</span> <span class="n">store</span>  <span class="c1"># just to be able to use shorthand &quot;s&quot;</span>
 
-    <span class="n">_delete_keys_from_store</span><span class="p">(</span><span class="n">s</span><span class="p">,</span> <span class="p">[</span><span class="s1">&#39;_foo&#39;</span><span class="p">,</span> <span class="s1">&#39;_hello&#39;</span><span class="p">])</span>
+    <span class="n">_delete_keys_from_store</span><span class="p">(</span><span class="n">s</span><span class="p">,</span> <span class="p">[</span><span class="s2">&quot;_foo&quot;</span><span class="p">,</span> <span class="s2">&quot;_hello&quot;</span><span class="p">])</span>
 
     <span class="n">n</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">s</span><span class="p">)</span>  <span class="c1"># remember how many items there are</span>
 
-    <span class="n">s</span><span class="p">[</span><span class="s1">&#39;_foo&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="s1">&#39;bar&#39;</span>  <span class="c1"># store &#39;bar&#39; in &#39;_foo&#39;</span>
-    <span class="k">assert</span> <span class="nb">len</span><span class="p">(</span><span class="n">s</span><span class="p">)</span> <span class="o">==</span> <span class="n">n</span> <span class="o">+</span> <span class="mi">1</span><span class="p">,</span> <span class="s1">&#39;You should have an extra item in the store&#39;</span>
+    <span class="n">s</span><span class="p">[</span><span class="s2">&quot;_foo&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&quot;bar&quot;</span>  <span class="c1"># store &#39;bar&#39; in &#39;_foo&#39;</span>
+    <span class="k">assert</span> <span class="nb">len</span><span class="p">(</span><span class="n">s</span><span class="p">)</span> <span class="o">==</span> <span class="n">n</span> <span class="o">+</span> <span class="mi">1</span><span class="p">,</span> <span class="s2">&quot;You should have an extra item in the store&quot;</span>
 
-    <span class="n">s</span><span class="p">[</span><span class="s1">&#39;_hello&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="s1">&#39;world&#39;</span>  <span class="c1"># store &#39;world&#39; in &#39;_hello&#39;</span>
-    <span class="k">assert</span> <span class="nb">len</span><span class="p">(</span><span class="n">s</span><span class="p">)</span> <span class="o">==</span> <span class="n">n</span> <span class="o">+</span> <span class="mi">2</span><span class="p">,</span> <span class="s1">&#39;You should have had two extra items in the store&#39;</span>
+    <span class="n">s</span><span class="p">[</span><span class="s2">&quot;_hello&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&quot;world&quot;</span>  <span class="c1"># store &#39;world&#39; in &#39;_hello&#39;</span>
+    <span class="k">assert</span> <span class="nb">len</span><span class="p">(</span><span class="n">s</span><span class="p">)</span> <span class="o">==</span> <span class="n">n</span> <span class="o">+</span> <span class="mi">2</span><span class="p">,</span> <span class="s2">&quot;You should have had two extra items in the store&quot;</span>
 
     <span class="k">try</span><span class="p">:</span>
         <span class="c1"># testing deletion</span>
-        <span class="k">del</span> <span class="n">s</span><span class="p">[</span><span class="s1">&#39;_hello&#39;</span><span class="p">]</span>  <span class="c1"># delet _hello</span>
+        <span class="k">del</span> <span class="n">s</span><span class="p">[</span><span class="s2">&quot;_hello&quot;</span><span class="p">]</span>  <span class="c1"># delet _hello</span>
         <span class="k">assert</span> <span class="nb">len</span><span class="p">(</span><span class="n">s</span><span class="p">)</span> <span class="o">==</span> <span class="n">n</span> <span class="o">+</span> <span class="mi">1</span>
-        <span class="n">s</span><span class="p">[</span><span class="s1">&#39;_hello&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="s1">&#39;world&#39;</span>  <span class="c1"># put it back</span>
+        <span class="n">s</span><span class="p">[</span><span class="s2">&quot;_hello&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&quot;world&quot;</span>  <span class="c1"># put it back</span>
 
-        <span class="k">if</span> <span class="nb">hasattr</span><span class="p">(</span><span class="n">s</span><span class="p">,</span> <span class="s1">&#39;pop&#39;</span><span class="p">):</span>
-            <span class="n">_</span> <span class="o">=</span> <span class="n">s</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s1">&#39;_hello&#39;</span><span class="p">)</span>
+        <span class="k">if</span> <span class="nb">hasattr</span><span class="p">(</span><span class="n">s</span><span class="p">,</span> <span class="s2">&quot;pop&quot;</span><span class="p">):</span>
+            <span class="n">_</span> <span class="o">=</span> <span class="n">s</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s2">&quot;_hello&quot;</span><span class="p">)</span>
             <span class="k">assert</span> <span class="nb">len</span><span class="p">(</span><span class="n">s</span><span class="p">)</span> <span class="o">==</span> <span class="n">n</span> <span class="o">+</span> <span class="mi">1</span>
-            <span class="n">s</span><span class="p">[</span><span class="s1">&#39;_hello&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="s1">&#39;world&#39;</span>  <span class="c1"># put it back</span>
+            <span class="n">s</span><span class="p">[</span><span class="s2">&quot;_hello&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&quot;world&quot;</span>  <span class="c1"># put it back</span>
     <span class="k">except</span> <span class="n">DeletionsNotAllowed</span><span class="p">:</span>
         <span class="k">pass</span>
 
     <span class="c1"># wraped in try/except in case overwriting is not allowed</span>
     <span class="k">try</span><span class="p">:</span>
-        <span class="n">s</span><span class="p">[</span><span class="s1">&#39;_foo&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="s1">&#39;a different value&#39;</span>
+        <span class="n">s</span><span class="p">[</span><span class="s2">&quot;_foo&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&quot;a different value&quot;</span>
         <span class="k">assert</span> <span class="nb">len</span><span class="p">(</span><span class="n">s</span><span class="p">)</span> <span class="o">==</span> <span class="n">n</span> <span class="o">+</span> <span class="mi">2</span>
     <span class="k">except</span> <span class="n">OverWritesNotAllowedError</span><span class="p">:</span>
         <span class="k">pass</span>
 
-    <span class="n">_delete_keys_from_store</span><span class="p">(</span><span class="n">s</span><span class="p">,</span> <span class="p">[</span><span class="s1">&#39;_foo&#39;</span><span class="p">,</span> <span class="s1">&#39;_hello&#39;</span><span class="p">])</span>
+    <span class="n">_delete_keys_from_store</span><span class="p">(</span><span class="n">s</span><span class="p">,</span> <span class="p">[</span><span class="s2">&quot;_foo&quot;</span><span class="p">,</span> <span class="s2">&quot;_hello&quot;</span><span class="p">])</span>
 
 
 <span class="k">def</span><span class="w"> </span><span class="nf">_multi_test</span><span class="p">(</span><span class="n">store</span><span class="p">):</span>

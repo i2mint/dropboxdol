@@ -5,7 +5,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>dropboxdol.tests.base_test &mdash; dropboxdol 0.0.3 documentation</title>
+  <title>dropboxdol.tests.base_test &mdash; dropboxdol 0.0.4 documentation</title>
       <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=b86133f3" />
       <link rel="stylesheet" type="text/css" href="../../../_static/css/theme.css?v=e59714d7" />
       <link rel="stylesheet" type="text/css" href="../../../_static/copybutton.css?v=76b2166b" />
@@ -14,7 +14,7 @@
   
       <script src="../../../_static/jquery.js?v=5d32c60e"></script>
       <script src="../../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
-      <script src="../../../_static/documentation_options.js?v=47de8214"></script>
+      <script src="../../../_static/documentation_options.js?v=8c5712d9"></script>
       <script src="../../../_static/doctools.js?v=9bcbadda"></script>
       <script src="../../../_static/sphinx_highlight.js?v=dc90522c"></script>
       <script src="../../../_static/toggleprompt.js?v=d7ede5d2"></script>
@@ -86,7 +86,7 @@
 <div class="viewcode-block" id="BaseTest">
 <a class="viewcode-back" href="../../../module_docs/dropboxdol/tests/base_test.html#dropboxdol.tests.base_test.BaseTest">[docs]</a>
 <span class="k">class</span><span class="w"> </span><span class="nc">BaseTest</span><span class="p">:</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot; Base test class for persisters and stores. &quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Base test class for persisters and stores.&quot;&quot;&quot;</span>
 
     <span class="n">db</span> <span class="o">=</span> <span class="kc">None</span>  <span class="c1"># Redefine me!</span>
 
@@ -147,7 +147,7 @@
 <div class="viewcode-block" id="BasePersisterTest">
 <a class="viewcode-back" href="../../../module_docs/dropboxdol/tests/base_test.html#dropboxdol.tests.base_test.BasePersisterTest">[docs]</a>
 <span class="k">class</span><span class="w"> </span><span class="nc">BasePersisterTest</span><span class="p">(</span><span class="n">BaseTest</span><span class="p">):</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot; Base test for all Persisters. &quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Base test for all Persisters.&quot;&quot;&quot;</span>
 
     <span class="n">inexistent_key</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;first_name&quot;</span><span class="p">:</span> <span class="s2">&quot;inexistent key value&quot;</span><span class="p">}</span></div>
 
@@ -156,7 +156,7 @@
 <div class="viewcode-block" id="BaseStoreTest">
 <a class="viewcode-back" href="../../../module_docs/dropboxdol/tests/base_test.html#dropboxdol.tests.base_test.BaseStoreTest">[docs]</a>
 <span class="k">class</span><span class="w"> </span><span class="nc">BaseStoreTest</span><span class="p">(</span><span class="n">BaseTest</span><span class="p">):</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot; Base test for all Stores. &quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Base test for all Stores.&quot;&quot;&quot;</span>
 
     <span class="n">inexistent_key</span> <span class="o">=</span> <span class="s2">&quot;inexistent key&quot;</span>
 
@@ -168,7 +168,7 @@
 <div class="viewcode-block" id="BaseKeyTupleStoreTest">
 <a class="viewcode-back" href="../../../module_docs/dropboxdol/tests/base_test.html#dropboxdol.tests.base_test.BaseKeyTupleStoreTest">[docs]</a>
 <span class="k">class</span><span class="w"> </span><span class="nc">BaseKeyTupleStoreTest</span><span class="p">(</span><span class="n">BaseStoreTest</span><span class="p">):</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot; Base test for all Stores with Keys as tuples. &quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Base test for all Stores with Keys as tuples.&quot;&quot;&quot;</span>
 
     <span class="n">key</span> <span class="o">=</span> <span class="nb">tuple</span><span class="p">(</span><span class="n">BaseTest</span><span class="o">.</span><span class="n">key</span><span class="o">.</span><span class="n">values</span><span class="p">())</span></div>
 
@@ -177,7 +177,7 @@
 <div class="viewcode-block" id="BaseTupleStoreTest">
 <a class="viewcode-back" href="../../../module_docs/dropboxdol/tests/base_test.html#dropboxdol.tests.base_test.BaseTupleStoreTest">[docs]</a>
 <span class="k">class</span><span class="w"> </span><span class="nc">BaseTupleStoreTest</span><span class="p">(</span><span class="n">BaseKeyTupleStoreTest</span><span class="p">):</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot; Base test for all Stores with Keys and Values as tuples. &quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Base test for all Stores with Keys and Values as tuples.&quot;&quot;&quot;</span>
 
     <span class="n">data</span> <span class="o">=</span> <span class="nb">tuple</span><span class="p">(</span><span class="n">BaseTest</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">values</span><span class="p">())</span>
     <span class="n">data_updated</span> <span class="o">=</span> <span class="nb">tuple</span><span class="p">(</span><span class="n">BaseTest</span><span class="o">.</span><span class="n">data_updated</span><span class="o">.</span><span class="n">values</span><span class="p">())</span></div>
