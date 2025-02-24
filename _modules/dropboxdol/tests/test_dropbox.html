@@ -1,0 +1,309 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../../../">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>dropboxdol.tests.test_dropbox &mdash; dropboxdol 0.0.3 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/css/theme.css?v=e59714d7" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/copybutton.css?v=76b2166b" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/graphviz.css?v=4ae1632d" />
+
+  
+      <script src="../../../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../../../_static/documentation_options.js?v=47de8214"></script>
+      <script src="../../../_static/doctools.js?v=9bcbadda"></script>
+      <script src="../../../_static/sphinx_highlight.js?v=dc90522c"></script>
+      <script src="../../../_static/toggleprompt.js?v=d7ede5d2"></script>
+      <script src="../../../_static/clipboard.min.js?v=a7894cd8"></script>
+      <script src="../../../_static/copybutton.js?v=f281be69"></script>
+    <script src="../../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../../../index.html" class="icon icon-home">
+            dropboxdol
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../module_docs/dropboxdol.html">dropboxdol</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../module_docs/dropboxdol/base.html">dropboxdol.base</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../module_docs/dropboxdol/connection.html">dropboxdol.connection</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../module_docs/dropboxdol/tests/base_test.html">dropboxdol.tests.base_test</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../module_docs/dropboxdol/tests/test_dropbox.html">dropboxdol.tests.test_dropbox</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../module_docs/dropboxdol/util.html">dropboxdol.util</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../index.html">dropboxdol</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../../index.html">Module code</a></li>
+      <li class="breadcrumb-item active">dropboxdol.tests.test_dropbox</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <h1>Source code for dropboxdol.tests.test_dropbox</h1><div class="highlight"><pre>
+<span></span><span class="kn">from</span><span class="w"> </span><span class="nn">os</span><span class="w"> </span><span class="kn">import</span> <span class="n">environ</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">uuid</span><span class="w"> </span><span class="kn">import</span> <span class="n">uuid4</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">dropboxdol.tests.base_test</span><span class="w"> </span><span class="kn">import</span> <span class="n">BasePersisterTest</span>
+
+<span class="kn">from</span><span class="w"> </span><span class="nn">dol</span><span class="w"> </span><span class="kn">import</span> <span class="n">Store</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">dol.errors</span><span class="w"> </span><span class="kn">import</span> <span class="n">OverWritesNotAllowedError</span><span class="p">,</span> <span class="n">DeletionsNotAllowed</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">dropboxdol.base</span><span class="w"> </span><span class="kn">import</span> <span class="n">DropboxPersister</span><span class="p">,</span> <span class="n">DropboxLinkReaderWithToken</span>
+
+<span class="n">ROOT_DIR</span> <span class="o">=</span> <span class="n">environ</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;DROPBOX_ROOT_DIR&quot;</span><span class="p">,</span> <span class="s2">&quot;/test_data&quot;</span><span class="p">)</span>
+
+<span class="n">TEST_DROPBOX_ACCESS_TOKEN</span> <span class="o">=</span> <span class="n">environ</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;TEST_DROPBOX_ACCESS_TOKEN&quot;</span><span class="p">)</span>
+<span class="n">TEST_DROPBOX_REFRESH_TOKEN</span> <span class="o">=</span> <span class="n">environ</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;TEST_DROPBOX_ACCESS_TOKEN&quot;</span><span class="p">)</span>
+<span class="n">TEST_DROPBOX_APP_KEY</span> <span class="o">=</span> <span class="n">environ</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;TEST_DROPBOX_ACCESS_TOKEN&quot;</span><span class="p">)</span>
+<span class="n">TEST_DROPBOX_APP_SECRET</span> <span class="o">=</span> <span class="n">environ</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;TEST_DROPBOX_ACCESS_TOKEN&quot;</span><span class="p">)</span>
+
+<span class="n">test_config</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="s2">&quot;oauth2_access_token&quot;</span><span class="p">:</span> <span class="n">environ</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;TEST_DROPBOX_ACCESS_TOKEN&quot;</span><span class="p">),</span>
+    <span class="s2">&quot;oauth2_refresh_token&quot;</span><span class="p">:</span> <span class="n">environ</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;TEST_DROPBOX_REFRESH_TOKEN&quot;</span><span class="p">),</span>
+    <span class="s2">&quot;app_key&quot;</span><span class="p">:</span> <span class="n">environ</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;TEST_DROPBOX_APP_KEY&quot;</span><span class="p">),</span>
+    <span class="s2">&quot;app_secret&quot;</span><span class="p">:</span> <span class="n">environ</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;TEST_DROPBOX_APP_SECRET&quot;</span><span class="p">),</span>
+<span class="p">}</span>
+
+<span class="k">if</span> <span class="nb">any</span><span class="p">(</span><span class="n">val</span> <span class="ow">is</span> <span class="kc">None</span> <span class="k">for</span> <span class="n">val</span> <span class="ow">in</span> <span class="n">test_config</span><span class="o">.</span><span class="n">values</span><span class="p">()):</span>
+    <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
+        <span class="s2">&quot;To run tests, you must set the following environment variables: &quot;</span>
+        <span class="s2">&quot;TEST_DROPBOX_ACCESS_TOKEN, TEST_DROPBOX_REFRESH_TOKEN, TEST_DROPBOX_APP_KEY, TEST_DROPBOX_APP_SECRET&quot;</span>
+    <span class="p">)</span>
+
+
+<div class="viewcode-block" id="TestDropboxPersister">
+<a class="viewcode-back" href="../../../module_docs/dropboxdol/tests/test_dropbox.html#dropboxdol.tests.test_dropbox.TestDropboxPersister">[docs]</a>
+<span class="k">class</span><span class="w"> </span><span class="nc">TestDropboxPersister</span><span class="p">(</span><span class="n">BasePersisterTest</span><span class="p">):</span>
+    <span class="n">db</span> <span class="o">=</span> <span class="n">DropboxPersister</span><span class="p">(</span><span class="n">rootdir</span><span class="o">=</span><span class="n">ROOT_DIR</span><span class="p">,</span> <span class="n">connection_config</span><span class="o">=</span><span class="n">test_config</span><span class="p">)</span>
+
+    <span class="n">key</span> <span class="o">=</span> <span class="s2">&quot;/&quot;</span><span class="o">.</span><span class="n">join</span><span class="p">((</span><span class="n">ROOT_DIR</span><span class="p">,</span> <span class="n">uuid4</span><span class="p">()</span><span class="o">.</span><span class="n">hex</span><span class="p">))</span>
+    <span class="n">data</span> <span class="o">=</span> <span class="sa">b</span><span class="s2">&quot;Some binary data here.&quot;</span>
+    <span class="n">data_updated</span> <span class="o">=</span> <span class="sa">b</span><span class="s2">&quot;Smth completely different.&quot;</span>
+    <span class="n">inexistent_key</span> <span class="o">=</span> <span class="s2">&quot;/&quot;</span><span class="o">.</span><span class="n">join</span><span class="p">((</span><span class="n">ROOT_DIR</span><span class="p">,</span> <span class="n">uuid4</span><span class="p">()</span><span class="o">.</span><span class="n">hex</span><span class="p">,</span> <span class="s2">&quot;x&quot;</span><span class="p">))</span></div>
+
+
+
+<div class="viewcode-block" id="TestDropboxLinkPersister">
+<a class="viewcode-back" href="../../../module_docs/dropboxdol/tests/test_dropbox.html#dropboxdol.tests.test_dropbox.TestDropboxLinkPersister">[docs]</a>
+<span class="k">class</span><span class="w"> </span><span class="nc">TestDropboxLinkPersister</span><span class="p">(</span><span class="n">TestDropboxPersister</span><span class="p">):</span>
+    <span class="n">db</span> <span class="o">=</span> <span class="n">DropboxLinkReaderWithToken</span><span class="p">(</span>
+        <span class="n">url</span><span class="o">=</span><span class="s2">&quot;https://www.dropbox.com/sh/0ru09jmk0w9tdnr/AAA-PPON2sYmwUUoGQpBQh1Ia?dl=0&quot;</span><span class="p">,</span>
+        <span class="n">connection_config</span><span class="o">=</span><span class="n">test_config</span><span class="p">,</span>
+    <span class="p">)</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">_create_test_file</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">db</span> <span class="o">=</span> <span class="n">DropboxPersister</span><span class="p">(</span><span class="n">rootdir</span><span class="o">=</span><span class="n">ROOT_DIR</span><span class="p">,</span> <span class="n">connection_config</span><span class="o">=</span><span class="n">test_config</span><span class="p">)</span>
+        <span class="n">db</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">key</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">data</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">test_crud</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="c1"># Read-a-file test only, since LinkPersister has a read-only access.</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_create_test_file</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_test_read</span><span class="p">()</span>
+
+        <span class="n">all_objects</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">db</span><span class="p">)</span>
+        <span class="n">key</span> <span class="o">=</span> <span class="n">all_objects</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span></div>
+
+        <span class="c1"># assert self.db[key]  # TODO: Fix this assertion</span>
+
+
+<span class="k">def</span><span class="w"> </span><span class="nf">_delete_keys_from_store</span><span class="p">(</span><span class="n">store</span><span class="p">,</span> <span class="n">keys_to_delete</span><span class="p">):</span>
+    <span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="n">keys_to_delete</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">k</span> <span class="ow">in</span> <span class="n">store</span><span class="p">:</span>  <span class="c1"># if key already in s, delete it</span>
+            <span class="k">del</span> <span class="n">store</span><span class="p">[</span><span class="n">k</span><span class="p">]</span>
+
+
+<span class="k">def</span><span class="w"> </span><span class="nf">_test_ops_on_store</span><span class="p">(</span><span class="n">store</span><span class="p">):</span>
+    <span class="n">s</span> <span class="o">=</span> <span class="n">store</span>  <span class="c1"># just to be able to use shorthand &quot;s&quot;</span>
+
+    <span class="n">_delete_keys_from_store</span><span class="p">(</span><span class="n">s</span><span class="p">,</span> <span class="p">[</span><span class="s1">&#39;_foo&#39;</span><span class="p">,</span> <span class="s1">&#39;_hello&#39;</span><span class="p">,</span> <span class="s1">&#39;_non_existing_key_&#39;</span><span class="p">])</span>
+
+    <span class="c1"># test &quot;not in&quot;</span>
+    <span class="k">assert</span> <span class="p">(</span>
+        <span class="s1">&#39;_non_existing_key_&#39;</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">s</span>
+    <span class="p">),</span> <span class="s2">&quot;I really wasn&#39;t expecting that key to be in there!&quot;</span>
+
+    <span class="n">s</span><span class="p">[</span><span class="s1">&#39;_foo&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="s1">&#39;bar&#39;</span>  <span class="c1"># store &#39;bar&#39; in &#39;_foo&#39;</span>
+    <span class="k">assert</span> <span class="s1">&#39;_foo&#39;</span> <span class="ow">in</span> <span class="n">s</span><span class="p">,</span> <span class="s1">&#39;&quot;_foo&quot; in s&#39;</span>
+    <span class="k">assert</span> <span class="n">s</span><span class="p">[</span><span class="s1">&#39;_foo&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="s1">&#39;bar&#39;</span>
+
+    <span class="n">s</span><span class="p">[</span><span class="s1">&#39;_hello&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="s1">&#39;world&#39;</span>  <span class="c1"># store &#39;world&#39; in &#39;_hello&#39;</span>
+
+    <span class="k">if</span> <span class="nb">hasattr</span><span class="p">(</span><span class="n">s</span><span class="p">,</span> <span class="s1">&#39;keys&#39;</span><span class="p">):</span>
+        <span class="k">assert</span> <span class="nb">set</span><span class="p">(</span><span class="n">s</span><span class="o">.</span><span class="n">keys</span><span class="p">())</span><span class="o">.</span><span class="n">issuperset</span><span class="p">({</span><span class="s1">&#39;_foo&#39;</span><span class="p">,</span> <span class="s1">&#39;_hello&#39;</span><span class="p">})</span>
+    <span class="k">if</span> <span class="nb">hasattr</span><span class="p">(</span><span class="n">s</span><span class="p">,</span> <span class="s1">&#39;values&#39;</span><span class="p">):</span>
+        <span class="k">assert</span> <span class="nb">set</span><span class="p">(</span><span class="n">s</span><span class="o">.</span><span class="n">values</span><span class="p">())</span><span class="o">.</span><span class="n">issuperset</span><span class="p">({</span><span class="s1">&#39;bar&#39;</span><span class="p">,</span> <span class="s1">&#39;world&#39;</span><span class="p">})</span>
+    <span class="k">if</span> <span class="nb">hasattr</span><span class="p">(</span><span class="n">s</span><span class="p">,</span> <span class="s1">&#39;items&#39;</span><span class="p">):</span>
+        <span class="k">assert</span> <span class="nb">set</span><span class="p">(</span><span class="n">s</span><span class="o">.</span><span class="n">items</span><span class="p">())</span><span class="o">.</span><span class="n">issuperset</span><span class="p">({(</span><span class="s1">&#39;_foo&#39;</span><span class="p">,</span> <span class="s1">&#39;bar&#39;</span><span class="p">),</span> <span class="p">(</span><span class="s1">&#39;_hello&#39;</span><span class="p">,</span> <span class="s1">&#39;world&#39;</span><span class="p">)})</span>
+    <span class="k">if</span> <span class="nb">hasattr</span><span class="p">(</span><span class="n">s</span><span class="p">,</span> <span class="s1">&#39;get&#39;</span><span class="p">):</span>
+        <span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="n">s</span><span class="p">:</span>
+            <span class="k">assert</span> <span class="n">s</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">k</span><span class="p">)</span> <span class="o">==</span> <span class="n">s</span><span class="p">[</span><span class="n">k</span><span class="p">]</span>
+        <span class="k">assert</span> <span class="n">s</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;_hello&#39;</span><span class="p">)</span> <span class="o">==</span> <span class="s1">&#39;world&#39;</span>
+        <span class="k">assert</span> <span class="n">s</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;_non_existing_key_&#39;</span><span class="p">,</span> <span class="s1">&#39;some default&#39;</span><span class="p">)</span> <span class="o">==</span> <span class="s1">&#39;some default&#39;</span>
+        <span class="k">assert</span> <span class="n">s</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;_non_existing_key_&#39;</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span> <span class="ow">is</span> <span class="kc">None</span>
+    <span class="k">if</span> <span class="nb">hasattr</span><span class="p">(</span><span class="n">s</span><span class="p">,</span> <span class="s1">&#39;setdefault&#39;</span><span class="p">):</span>
+        <span class="k">assert</span> <span class="n">s</span><span class="o">.</span><span class="n">setdefault</span><span class="p">(</span><span class="s1">&#39;_hello&#39;</span><span class="p">,</span> <span class="s1">&#39;this_will_never_be_used&#39;</span><span class="p">)</span> <span class="o">==</span> <span class="s1">&#39;world&#39;</span>
+        <span class="k">assert</span> <span class="n">s</span><span class="o">.</span><span class="n">setdefault</span><span class="p">(</span><span class="s1">&#39;_non_existing_key_&#39;</span><span class="p">,</span> <span class="s1">&#39;this_will&#39;</span><span class="p">)</span> <span class="o">==</span> <span class="s1">&#39;this_will&#39;</span>
+        <span class="k">assert</span> <span class="n">s</span><span class="p">[</span><span class="s1">&#39;_non_existing_key_&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="s1">&#39;this_will&#39;</span>
+        <span class="k">del</span> <span class="n">s</span><span class="p">[</span><span class="s1">&#39;_non_existing_key_&#39;</span><span class="p">]</span>
+
+    <span class="c1"># test &quot;not in&quot; when there&#39;s something</span>
+    <span class="k">assert</span> <span class="p">(</span>
+        <span class="s1">&#39;_non_existing_key_&#39;</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">s</span>
+    <span class="p">),</span> <span class="s2">&quot;I really wasn&#39;t expecting that key to be in there!&quot;</span>
+
+    <span class="c1"># wraped in try/except in case deleting is not allowed</span>
+    <span class="k">try</span><span class="p">:</span>
+        <span class="c1"># testing deletion</span>
+        <span class="k">del</span> <span class="n">s</span><span class="p">[</span><span class="s1">&#39;_hello&#39;</span><span class="p">]</span>  <span class="c1"># delet _hello</span>
+        <span class="k">assert</span> <span class="s1">&#39;_hello&#39;</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">s</span>
+        <span class="n">s</span><span class="p">[</span><span class="s1">&#39;_hello&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="s1">&#39;world&#39;</span>  <span class="c1"># put it back</span>
+
+        <span class="k">if</span> <span class="nb">hasattr</span><span class="p">(</span><span class="n">s</span><span class="p">,</span> <span class="s1">&#39;pop&#39;</span><span class="p">):</span>
+            <span class="n">v</span> <span class="o">=</span> <span class="n">s</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s1">&#39;_hello&#39;</span><span class="p">)</span>
+            <span class="k">assert</span> <span class="n">v</span> <span class="o">==</span> <span class="s1">&#39;world&#39;</span>
+            <span class="k">assert</span> <span class="s1">&#39;_hello&#39;</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">s</span>
+            <span class="n">s</span><span class="p">[</span><span class="s1">&#39;_hello&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="s1">&#39;world&#39;</span>  <span class="c1"># put it back</span>
+    <span class="k">except</span> <span class="n">DeletionsNotAllowed</span><span class="p">:</span>
+        <span class="k">pass</span>
+
+    <span class="c1"># wraped in try/except in case overwriting is not allowed</span>
+    <span class="k">try</span><span class="p">:</span>
+        <span class="n">s</span><span class="p">[</span><span class="s1">&#39;_foo&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="s1">&#39;a different value&#39;</span>
+        <span class="k">assert</span> <span class="n">s</span><span class="p">[</span><span class="s1">&#39;_foo&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="s1">&#39;a different value&#39;</span>
+    <span class="k">except</span> <span class="n">OverWritesNotAllowedError</span><span class="p">:</span>
+        <span class="k">pass</span>
+
+    <span class="n">_delete_keys_from_store</span><span class="p">(</span><span class="n">s</span><span class="p">,</span> <span class="p">[</span><span class="s1">&#39;_foo&#39;</span><span class="p">,</span> <span class="s1">&#39;_hello&#39;</span><span class="p">])</span>
+
+
+<span class="k">def</span><span class="w"> </span><span class="nf">_test_len</span><span class="p">(</span><span class="n">store</span><span class="p">):</span>
+    <span class="n">s</span> <span class="o">=</span> <span class="n">store</span>  <span class="c1"># just to be able to use shorthand &quot;s&quot;</span>
+
+    <span class="n">_delete_keys_from_store</span><span class="p">(</span><span class="n">s</span><span class="p">,</span> <span class="p">[</span><span class="s1">&#39;_foo&#39;</span><span class="p">,</span> <span class="s1">&#39;_hello&#39;</span><span class="p">])</span>
+
+    <span class="n">n</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">s</span><span class="p">)</span>  <span class="c1"># remember how many items there are</span>
+
+    <span class="n">s</span><span class="p">[</span><span class="s1">&#39;_foo&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="s1">&#39;bar&#39;</span>  <span class="c1"># store &#39;bar&#39; in &#39;_foo&#39;</span>
+    <span class="k">assert</span> <span class="nb">len</span><span class="p">(</span><span class="n">s</span><span class="p">)</span> <span class="o">==</span> <span class="n">n</span> <span class="o">+</span> <span class="mi">1</span><span class="p">,</span> <span class="s1">&#39;You should have an extra item in the store&#39;</span>
+
+    <span class="n">s</span><span class="p">[</span><span class="s1">&#39;_hello&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="s1">&#39;world&#39;</span>  <span class="c1"># store &#39;world&#39; in &#39;_hello&#39;</span>
+    <span class="k">assert</span> <span class="nb">len</span><span class="p">(</span><span class="n">s</span><span class="p">)</span> <span class="o">==</span> <span class="n">n</span> <span class="o">+</span> <span class="mi">2</span><span class="p">,</span> <span class="s1">&#39;You should have had two extra items in the store&#39;</span>
+
+    <span class="k">try</span><span class="p">:</span>
+        <span class="c1"># testing deletion</span>
+        <span class="k">del</span> <span class="n">s</span><span class="p">[</span><span class="s1">&#39;_hello&#39;</span><span class="p">]</span>  <span class="c1"># delet _hello</span>
+        <span class="k">assert</span> <span class="nb">len</span><span class="p">(</span><span class="n">s</span><span class="p">)</span> <span class="o">==</span> <span class="n">n</span> <span class="o">+</span> <span class="mi">1</span>
+        <span class="n">s</span><span class="p">[</span><span class="s1">&#39;_hello&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="s1">&#39;world&#39;</span>  <span class="c1"># put it back</span>
+
+        <span class="k">if</span> <span class="nb">hasattr</span><span class="p">(</span><span class="n">s</span><span class="p">,</span> <span class="s1">&#39;pop&#39;</span><span class="p">):</span>
+            <span class="n">_</span> <span class="o">=</span> <span class="n">s</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s1">&#39;_hello&#39;</span><span class="p">)</span>
+            <span class="k">assert</span> <span class="nb">len</span><span class="p">(</span><span class="n">s</span><span class="p">)</span> <span class="o">==</span> <span class="n">n</span> <span class="o">+</span> <span class="mi">1</span>
+            <span class="n">s</span><span class="p">[</span><span class="s1">&#39;_hello&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="s1">&#39;world&#39;</span>  <span class="c1"># put it back</span>
+    <span class="k">except</span> <span class="n">DeletionsNotAllowed</span><span class="p">:</span>
+        <span class="k">pass</span>
+
+    <span class="c1"># wraped in try/except in case overwriting is not allowed</span>
+    <span class="k">try</span><span class="p">:</span>
+        <span class="n">s</span><span class="p">[</span><span class="s1">&#39;_foo&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="s1">&#39;a different value&#39;</span>
+        <span class="k">assert</span> <span class="nb">len</span><span class="p">(</span><span class="n">s</span><span class="p">)</span> <span class="o">==</span> <span class="n">n</span> <span class="o">+</span> <span class="mi">2</span>
+    <span class="k">except</span> <span class="n">OverWritesNotAllowedError</span><span class="p">:</span>
+        <span class="k">pass</span>
+
+    <span class="n">_delete_keys_from_store</span><span class="p">(</span><span class="n">s</span><span class="p">,</span> <span class="p">[</span><span class="s1">&#39;_foo&#39;</span><span class="p">,</span> <span class="s1">&#39;_hello&#39;</span><span class="p">])</span>
+
+
+<span class="k">def</span><span class="w"> </span><span class="nf">_multi_test</span><span class="p">(</span><span class="n">store</span><span class="p">):</span>
+    <span class="n">_test_ops_on_store</span><span class="p">(</span><span class="n">store</span><span class="p">)</span>
+    <span class="n">_test_len</span><span class="p">(</span><span class="n">store</span><span class="p">)</span>
+    <span class="n">s</span> <span class="o">=</span> <span class="n">Store</span><span class="o">.</span><span class="n">wrap</span><span class="p">(</span><span class="n">store</span><span class="p">)</span>  <span class="c1"># empty wrapping of an instance</span>
+    <span class="n">_test_ops_on_store</span><span class="p">(</span><span class="n">s</span><span class="p">)</span>
+    <span class="n">_test_len</span><span class="p">(</span><span class="n">s</span><span class="p">)</span>
+
+
+<span class="c1"># def test_dropbox():</span>
+<span class="c1">#     from dol.util import ModuleNotFoundIgnore</span>
+
+<span class="c1">#     with ModuleNotFoundIgnore():</span>
+<span class="c1">#         from dropboxdol import DropboxTextFiles</span>
+<span class="c1">#         import json</span>
+<span class="c1">#         import os</span>
+
+<span class="c1">#         try:</span>
+<span class="c1">#             FAK = &#39;$fak&#39;</span>
+<span class="c1">#             filepath = os.path.expanduser(</span>
+<span class="c1">#                 &#39;~/.py2store_configs/stores/json/dropbox.json&#39;</span>
+<span class="c1">#             )</span>
+<span class="c1">#             configs = json.load(open(filepath))</span>
+<span class="c1">#             store = DropboxTextFiles(&#39;/py2store_data/test/&#39;, **configs[FAK][&#39;k&#39;])</span>
+<span class="c1">#             _multi_test(store)</span>
+<span class="c1">#         except FileNotFoundError:</span>
+<span class="c1">#             from warnings import warn</span>
+
+<span class="c1">#             warn(f&#39;FileNotFoundError: {filepath}&#39;)</span>
+</pre></div>
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright NO COPYRIGHT.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

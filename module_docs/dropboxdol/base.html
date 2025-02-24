@@ -1,0 +1,232 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../../">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>dropboxdol.base &mdash; dropboxdol 0.0.3 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="../../_static/css/theme.css?v=e59714d7" />
+      <link rel="stylesheet" type="text/css" href="../../_static/copybutton.css?v=76b2166b" />
+      <link rel="stylesheet" type="text/css" href="../../_static/graphviz.css?v=4ae1632d" />
+
+  
+      <script src="../../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../../_static/documentation_options.js?v=47de8214"></script>
+      <script src="../../_static/doctools.js?v=9bcbadda"></script>
+      <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
+      <script src="../../_static/toggleprompt.js?v=d7ede5d2"></script>
+      <script src="../../_static/clipboard.min.js?v=a7894cd8"></script>
+      <script src="../../_static/copybutton.js?v=f281be69"></script>
+    <script src="../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="next" title="dropboxdol.connection" href="connection.html" />
+    <link rel="prev" title="dropboxdol" href="../dropboxdol.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../../index.html" class="icon icon-home">
+            dropboxdol
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../dropboxdol.html">dropboxdol</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">dropboxdol.base</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#dropboxdol.base.DropboxBinaryStore"><code class="docutils literal notranslate"><span class="pre">DropboxBinaryStore</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#dropboxdol.base.DropboxFiles"><code class="docutils literal notranslate"><span class="pre">DropboxFiles</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#dropboxdol.base.DropboxLinkReaderWithToken"><code class="docutils literal notranslate"><span class="pre">DropboxLinkReaderWithToken</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#dropboxdol.base.DropboxPersister"><code class="docutils literal notranslate"><span class="pre">DropboxPersister</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#dropboxdol.base.DropboxTextFiles"><code class="docutils literal notranslate"><span class="pre">DropboxTextFiles</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#dropboxdol.base.DropboxTextStore"><code class="docutils literal notranslate"><span class="pre">DropboxTextStore</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#dropboxdol.base.create_or_get_shared_link"><code class="docutils literal notranslate"><span class="pre">create_or_get_shared_link()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#dropboxdol.base.dropbox_link"><code class="docutils literal notranslate"><span class="pre">dropbox_link()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="connection.html">dropboxdol.connection</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tests/base_test.html">dropboxdol.tests.base_test</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tests/test_dropbox.html">dropboxdol.tests.test_dropbox</a></li>
+<li class="toctree-l1"><a class="reference internal" href="util.html">dropboxdol.util</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../index.html">dropboxdol</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../index.html" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">dropboxdol.base</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../../_sources/module_docs/dropboxdol/base.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="module-dropboxdol.base">
+<span id="dropboxdol-base"></span><h1>dropboxdol.base<a class="headerlink" href="#module-dropboxdol.base" title="Link to this heading"></a></h1>
+<p>Base functions for dropboxdol.</p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="dropboxdol.base.DropboxBinaryStore">
+<span class="sig-prename descclassname"><span class="pre">dropboxdol.base.</span></span><span class="sig-name descname"><span class="pre">DropboxBinaryStore</span></span><a class="headerlink" href="#dropboxdol.base.DropboxBinaryStore" title="Link to this definition"></a></dt>
+<dd><p>alias of <a class="reference internal" href="#dropboxdol.base.DropboxFiles" title="dropboxdol.base.DropboxFiles"><code class="xref py py-class docutils literal notranslate"><span class="pre">DropboxFiles</span></code></a></p>
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="dropboxdol.base.DropboxFiles">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">dropboxdol.base.</span></span><span class="sig-name descname"><span class="pre">DropboxFiles</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">rootdir</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">''</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">connection_config</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'default_dropbox_config.json'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">files_upload_kwargs</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">files_list_folder_kwargs</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">rev</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/dropboxdol/base.html#DropboxFiles"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#dropboxdol.base.DropboxFiles" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="dropboxdol.base.DropboxLinkReaderWithToken">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">dropboxdol.base.</span></span><span class="sig-name descname"><span class="pre">DropboxLinkReaderWithToken</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">url</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">connection_config</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'default_dropbox_config.json'</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">path</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">''</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">recursive</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">include_media_info</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">include_deleted</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">include_has_explicit_shared_members</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">include_mounted_folders</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">limit</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">include_property_groups</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">include_non_downloadable_files</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/dropboxdol/base.html#DropboxLinkReaderWithToken"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#dropboxdol.base.DropboxLinkReaderWithToken" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="dropboxdol.base.DropboxPersister">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">dropboxdol.base.</span></span><span class="sig-name descname"><span class="pre">DropboxPersister</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">rootdir</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">''</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">connection_config</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'default_dropbox_config.json'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">files_upload_kwargs</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">files_list_folder_kwargs</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">rev</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/dropboxdol/base.html#DropboxPersister"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#dropboxdol.base.DropboxPersister" title="Link to this definition"></a></dt>
+<dd><p>A persister for dropbox.
+You need to have the python connector (if you don’t: pip install dropbox)
+You also need to have a token for your dropbox app. If you don’t it’s a google away.
+Finally, for the test below, you need to put this token in ~/.py2store_configs.json’ under key
+dropbox.__init__kwargs, and have a folder named /py2store_data/test/ in your app space.</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span><span class="w"> </span><span class="nn">dropboxdol.tests.test_dropbox</span><span class="w"> </span><span class="kn">import</span> <span class="n">test_config</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span><span class="w"> </span><span class="nn">dropboxdol</span><span class="w"> </span><span class="kn">import</span> <span class="n">DropboxPersister</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">s</span> <span class="o">=</span> <span class="n">DropboxPersister</span><span class="p">(</span><span class="s1">&#39;/py2store_data/test/&#39;</span><span class="p">,</span> <span class="n">connection_config</span><span class="o">=</span><span class="n">test_config</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">if</span> <span class="s1">&#39;/py2store_data/test/_can_remove&#39;</span> <span class="ow">in</span> <span class="n">s</span><span class="p">:</span>
+<span class="gp">... </span>    <span class="k">del</span> <span class="n">s</span><span class="p">[</span><span class="s1">&#39;/py2store_data/test/_can_remove&#39;</span><span class="p">]</span>
+<span class="gp">...</span>
+<span class="gp">&gt;&gt;&gt;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">n</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">s</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">if</span> <span class="n">n</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
+<span class="gp">... </span>    <span class="k">assert</span> <span class="nb">list</span><span class="p">(</span><span class="n">s</span><span class="p">)</span> <span class="o">==</span> <span class="p">[</span><span class="s1">&#39;/py2store_data/test/_can_remove&#39;</span><span class="p">]</span>
+<span class="gp">...</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">s</span><span class="p">[</span><span class="s1">&#39;/py2store_data/test/_can_remove&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="sa">b</span><span class="s1">&#39;this is a test&#39;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">assert</span> <span class="nb">len</span><span class="p">(</span><span class="n">s</span><span class="p">)</span> <span class="o">==</span> <span class="n">n</span> <span class="o">+</span> <span class="mi">1</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">assert</span> <span class="n">s</span><span class="p">[</span><span class="s1">&#39;/py2store_data/test/_can_remove&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="sa">b</span><span class="s1">&#39;this is a test&#39;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="s1">&#39;/py2store_data/test/_can_remove&#39;</span> <span class="ow">in</span> <span class="n">s</span>
+<span class="go">True</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">del</span> <span class="n">s</span><span class="p">[</span><span class="s1">&#39;/py2store_data/test/_can_remove&#39;</span><span class="p">]</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="dropboxdol.base.DropboxTextFiles">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">dropboxdol.base.</span></span><span class="sig-name descname"><span class="pre">DropboxTextFiles</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">rootdir</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">''</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">connection_config</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'default_dropbox_config.json'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">files_upload_kwargs</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">files_list_folder_kwargs</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">rev</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/dropboxdol/base.html#DropboxTextFiles"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#dropboxdol.base.DropboxTextFiles" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="dropboxdol.base.DropboxTextStore">
+<span class="sig-prename descclassname"><span class="pre">dropboxdol.base.</span></span><span class="sig-name descname"><span class="pre">DropboxTextStore</span></span><a class="headerlink" href="#dropboxdol.base.DropboxTextStore" title="Link to this definition"></a></dt>
+<dd><p>alias of <a class="reference internal" href="#dropboxdol.base.DropboxTextFiles" title="dropboxdol.base.DropboxTextFiles"><code class="xref py py-class docutils literal notranslate"><span class="pre">DropboxTextFiles</span></code></a></p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="dropboxdol.base.create_or_get_shared_link">
+<span class="sig-prename descclassname"><span class="pre">dropboxdol.base.</span></span><span class="sig-name descname"><span class="pre">create_or_get_shared_link</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">dbx</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Dropbox</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dbx_file_path</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">str</span></span></span><a class="reference internal" href="../../_modules/dropboxdol/base.html#create_or_get_shared_link"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#dropboxdol.base.create_or_get_shared_link" title="Link to this definition"></a></dt>
+<dd><p>Create a shared link for the given Dropbox file path.</p>
+<p>If a shared link already exists, list and return the first one.
+Raises an exception with detailed information on authentication errors.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="dropboxdol.base.dropbox_link">
+<span class="sig-prename descclassname"><span class="pre">dropboxdol.base.</span></span><span class="sig-name descname"><span class="pre">dropbox_link</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">path</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dropbox_local_rootdir</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dl</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">access_config</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">dict</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'default_dropbox_config.json'</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">str</span></span></span><a class="reference internal" href="../../_modules/dropboxdol/base.html#dropbox_link"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#dropboxdol.base.dropbox_link" title="Link to this definition"></a></dt>
+<dd><p>Returns a shareable Dropbox URL for the file at the given local path.</p>
+<dl class="simple">
+<dt>The function:</dt><dd><ol class="arabic simple">
+<li><p>Retrieves the access token from os.environ using the given key or uses the provided token.</p></li>
+<li><p>Determines the absolute local file path (using dropbox_path if needed).</p></li>
+<li><p>Computes the Dropbox file path relative to the Dropbox folder.</p></li>
+<li><p>Attempts to create a shared link, or retrieves an existing one if it already exists.</p></li>
+<li><p>Modifies the URL to include the specified ‘dl’ parameter (e.g., dl=1 for direct download).</p></li>
+</ol>
+</dd>
+</dl>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>path</strong> (<em>str</em>) – The file path (absolute or relative).</p></li>
+<li><p><strong>dropbox_local_rootdir</strong> (<em>Optional</em><em>[</em><em>str</em><em>]</em>) – The local root Dropbox folder. If not provided, it will be inferred.</p></li>
+<li><p><strong>dl</strong> (<em>int</em>) – The value for the ‘dl’ parameter in the shared URL (default is 0).</p></li>
+<li><p><strong>access_config</strong> (<em>str</em>) – The access configuration (dict or file path)</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>The modified shared URL.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>str</p>
+</dd>
+<dt class="field-even">Raises<span class="colon">:</span></dt>
+<dd class="field-even"><ul class="simple">
+<li><p><strong>FileNotFoundError</strong> – If the file does not exist.</p></li>
+<li><p><strong>Exception</strong> – For issues with path computation or Dropbox API errors.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="../dropboxdol.html" class="btn btn-neutral float-left" title="dropboxdol" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="connection.html" class="btn btn-neutral float-right" title="dropboxdol.connection" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright NO COPYRIGHT.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

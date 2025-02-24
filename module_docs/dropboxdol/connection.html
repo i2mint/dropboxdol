@@ -1,0 +1,260 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../../">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>dropboxdol.connection &mdash; dropboxdol 0.0.3 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="../../_static/css/theme.css?v=e59714d7" />
+      <link rel="stylesheet" type="text/css" href="../../_static/copybutton.css?v=76b2166b" />
+      <link rel="stylesheet" type="text/css" href="../../_static/graphviz.css?v=4ae1632d" />
+
+  
+      <script src="../../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../../_static/documentation_options.js?v=47de8214"></script>
+      <script src="../../_static/doctools.js?v=9bcbadda"></script>
+      <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
+      <script src="../../_static/toggleprompt.js?v=d7ede5d2"></script>
+      <script src="../../_static/clipboard.min.js?v=a7894cd8"></script>
+      <script src="../../_static/copybutton.js?v=f281be69"></script>
+    <script src="../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="next" title="dropboxdol.tests.base_test" href="tests/base_test.html" />
+    <link rel="prev" title="dropboxdol.base" href="base.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../../index.html" class="icon icon-home">
+            dropboxdol
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../dropboxdol.html">dropboxdol</a></li>
+<li class="toctree-l1"><a class="reference internal" href="base.html">dropboxdol.base</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">dropboxdol.connection</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#dropboxdol.connection.copy_config_file"><code class="docutils literal notranslate"><span class="pre">copy_config_file()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#dropboxdol.connection.create_config_file"><code class="docutils literal notranslate"><span class="pre">create_config_file()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#dropboxdol.connection.get_client"><code class="docutils literal notranslate"><span class="pre">get_client()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#dropboxdol.connection.get_client_from_args"><code class="docutils literal notranslate"><span class="pre">get_client_from_args()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#dropboxdol.connection.get_client_from_config_file"><code class="docutils literal notranslate"><span class="pre">get_client_from_config_file()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#dropboxdol.connection.get_client_from_environment_vars"><code class="docutils literal notranslate"><span class="pre">get_client_from_environment_vars()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#dropboxdol.connection.get_envvar_if_upper_case_and_exists"><code class="docutils literal notranslate"><span class="pre">get_envvar_if_upper_case_and_exists()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#dropboxdol.connection.get_tokens_interactive"><code class="docutils literal notranslate"><span class="pre">get_tokens_interactive()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="tests/base_test.html">dropboxdol.tests.base_test</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tests/test_dropbox.html">dropboxdol.tests.test_dropbox</a></li>
+<li class="toctree-l1"><a class="reference internal" href="util.html">dropboxdol.util</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../index.html">dropboxdol</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../index.html" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">dropboxdol.connection</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../../_sources/module_docs/dropboxdol/connection.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="module-dropboxdol.connection">
+<span id="dropboxdol-connection"></span><h1>dropboxdol.connection<a class="headerlink" href="#module-dropboxdol.connection" title="Link to this heading"></a></h1>
+<p>Objects to connect to Dropbox.</p>
+<dl class="py function">
+<dt class="sig sig-object py" id="dropboxdol.connection.copy_config_file">
+<span class="sig-prename descclassname"><span class="pre">dropboxdol.connection.</span></span><span class="sig-name descname"><span class="pre">copy_config_file</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">src_config_file</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dest_config_file</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/dropboxdol/connection.html#copy_config_file"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#dropboxdol.connection.copy_config_file" title="Link to this definition"></a></dt>
+<dd><p>Copy a configuration file from one location to another.</p>
+<p>If the destination file already exists, a FileExistsError will be raised.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="dropboxdol.connection.create_config_file">
+<span class="sig-prename descclassname"><span class="pre">dropboxdol.connection.</span></span><span class="sig-name descname"><span class="pre">create_config_file</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">config_file</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">app_key</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">app_secret</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">oauth2_access_token</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">oauth2_refresh_token</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/dropboxdol/connection.html#create_config_file"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#dropboxdol.connection.create_config_file" title="Link to this definition"></a></dt>
+<dd><p>Create a configuration file for a Dropbox client.</p>
+<p>If the file already exists, a FileExistsError will be raised.
+The <cite>config_file</cite> must be a sring ending with ‘.json’.
+If oauth2_refresh_token is not given, an interactive flow will be used to obtain it,
+also replacing the oauth2_access_token.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="dropboxdol.connection.get_client">
+<span class="sig-prename descclassname"><span class="pre">dropboxdol.connection.</span></span><span class="sig-name descname"><span class="pre">get_client</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">config</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'default_dropbox_config.json'</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Dropbox</span></span></span><a class="reference internal" href="../../_modules/dropboxdol/connection.html#get_client"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#dropboxdol.connection.get_client" title="Link to this definition"></a></dt>
+<dd><p>Return a Dropbox client using the best available configuration source.</p>
+<dl class="simple">
+<dt>Priority:</dt><dd><ol class="arabic simple">
+<li><p>If an oauth2_access_token is provided and ends with ‘.json’, load configuration from that file.</p></li>
+<li><p>Else, if the environment variable (named by oauth2_access_token) exists, use environment variables.</p></li>
+<li><p>Otherwise, use explicit parameters provided via kwargs.</p></li>
+</ol>
+</dd>
+<dt>Expected keyword arguments:</dt><dd><ul class="simple">
+<li><p>oauth2_access_token</p></li>
+<li><p>oauth2_refresh_token</p></li>
+<li><p>app_key</p></li>
+<li><p>app_secret</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="dropboxdol.connection.get_client_from_args">
+<span class="sig-prename descclassname"><span class="pre">dropboxdol.connection.</span></span><span class="sig-name descname"><span class="pre">get_client_from_args</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">oauth2_access_token</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">oauth2_refresh_token</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">app_key</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">app_secret</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Dropbox</span></span></span><a class="reference internal" href="../../_modules/dropboxdol/connection.html#get_client_from_args"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#dropboxdol.connection.get_client_from_args" title="Link to this definition"></a></dt>
+<dd><p>Create a Dropbox client using explicit credentials with additional validation.</p>
+<dl class="simple">
+<dt>Validation includes:</dt><dd><ul class="simple">
+<li><p>Ensuring that oauth2_access_token is provided and is a non-empty string.</p></li>
+<li><p>If any of oauth2_refresh_token, app_key, or app_secret are provided, then all must be provided
+to enable auto-refresh.</p></li>
+<li><p>Issuing soft warnings if any of the parameters appear to be environment variable names
+(all uppercase), which might indicate that the caller intended to pass literal values.</p></li>
+</ul>
+</dd>
+</dl>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>oauth2_access_token</strong> (<em>str</em>) – The Dropbox access token.</p></li>
+<li><p><strong>oauth2_refresh_token</strong> (<em>str</em><em>, </em><em>optional</em>) – The Dropbox refresh token.</p></li>
+<li><p><strong>app_key</strong> (<em>str</em><em>, </em><em>optional</em>) – Your Dropbox app key.</p></li>
+<li><p><strong>app_secret</strong> (<em>str</em><em>, </em><em>optional</em>) – Your Dropbox app secret.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>A Dropbox client instance.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>dropbox.Dropbox</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="dropboxdol.connection.get_client_from_config_file">
+<span class="sig-prename descclassname"><span class="pre">dropboxdol.connection.</span></span><span class="sig-name descname"><span class="pre">get_client_from_config_file</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">config_filepath</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Dropbox</span></span></span><a class="reference internal" href="../../_modules/dropboxdol/connection.html#get_client_from_config_file"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#dropboxdol.connection.get_client_from_config_file" title="Link to this definition"></a></dt>
+<dd><p>Create a Dropbox client by loading configuration from a JSON file.</p>
+<dl class="simple">
+<dt>The JSON file must contain the keys:</dt><dd><ul class="simple">
+<li><p>“oauth2_access_token”</p></li>
+<li><p>“oauth2_refresh_token”</p></li>
+<li><p>“app_key”</p></li>
+<li><p>“app_secret”</p></li>
+</ul>
+</dd>
+</dl>
+<dl class="field-list simple">
+<dt class="field-odd">Raises<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>FileNotFoundError</strong> – If the config file does not exist.</p></li>
+<li><p><strong>Exception</strong> – If required keys are missing.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="dropboxdol.connection.get_client_from_environment_vars">
+<span class="sig-prename descclassname"><span class="pre">dropboxdol.connection.</span></span><span class="sig-name descname"><span class="pre">get_client_from_environment_vars</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">oauth2_access_token</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">oauth2_refresh_token</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">app_key</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">app_secret</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Dropbox</span></span></span><a class="reference internal" href="../../_modules/dropboxdol/connection.html#get_client_from_environment_vars"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#dropboxdol.connection.get_client_from_environment_vars" title="Link to this definition"></a></dt>
+<dd><p>Create a Dropbox client using configuration from environment variables.</p>
+<p>The provided parameter names are interpreted as the names of the environment variables.
+For example, calling:</p>
+<blockquote>
+<div><dl class="simple">
+<dt>get_client_from_environment_vars(“DROPBOX_ACCESS_TOKEN”, “DROPBOX_REFRESH_TOKEN”,</dt><dd><p>“DROPBOX_APP_KEY”, “DROPBOX_APP_SECRET”)</p>
+</dd>
+</dl>
+</div></blockquote>
+<p>will use the values from os.environ (if they exist), or fall back to the literal strings.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="dropboxdol.connection.get_envvar_if_upper_case_and_exists">
+<span class="sig-prename descclassname"><span class="pre">dropboxdol.connection.</span></span><span class="sig-name descname"><span class="pre">get_envvar_if_upper_case_and_exists</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">config</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">str</span></span></span><a class="reference internal" href="../../_modules/dropboxdol/connection.html#get_envvar_if_upper_case_and_exists"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#dropboxdol.connection.get_envvar_if_upper_case_and_exists" title="Link to this definition"></a></dt>
+<dd><p>Retrieve a configuration value.</p>
+<p>First checks os.environ for the given key. If present, returns its value;
+otherwise, returns the key itself (allowing you to pass literal values).</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="dropboxdol.connection.get_tokens_interactive">
+<span class="sig-prename descclassname"><span class="pre">dropboxdol.connection.</span></span><span class="sig-name descname"><span class="pre">get_tokens_interactive</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">app_key</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">app_secret</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/dropboxdol/connection.html#get_tokens_interactive"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#dropboxdol.connection.get_tokens_interactive" title="Link to this definition"></a></dt>
+<dd><p>Runs an interactive OAuth flow to obtain an access token and a refresh token.</p>
+<p>Ensure you pass your Dropbox app key and secret. This flow will print an
+authorization URL. Visit the URL in your browser, authorize the app, then
+paste the resulting code into the prompt.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>A tuple (access_token, refresh_token)</p>
+</dd>
+</dl>
+</dd></dl>
+
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="base.html" class="btn btn-neutral float-left" title="dropboxdol.base" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="tests/base_test.html" class="btn btn-neutral float-right" title="dropboxdol.tests.base_test" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright NO COPYRIGHT.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

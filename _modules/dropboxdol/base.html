@@ -1,0 +1,480 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../../">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>dropboxdol.base &mdash; dropboxdol 0.0.3 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="../../_static/css/theme.css?v=e59714d7" />
+      <link rel="stylesheet" type="text/css" href="../../_static/copybutton.css?v=76b2166b" />
+      <link rel="stylesheet" type="text/css" href="../../_static/graphviz.css?v=4ae1632d" />
+
+  
+      <script src="../../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../../_static/documentation_options.js?v=47de8214"></script>
+      <script src="../../_static/doctools.js?v=9bcbadda"></script>
+      <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
+      <script src="../../_static/toggleprompt.js?v=d7ede5d2"></script>
+      <script src="../../_static/clipboard.min.js?v=a7894cd8"></script>
+      <script src="../../_static/copybutton.js?v=f281be69"></script>
+    <script src="../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../../index.html" class="icon icon-home">
+            dropboxdol
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../module_docs/dropboxdol.html">dropboxdol</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../module_docs/dropboxdol/base.html">dropboxdol.base</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../module_docs/dropboxdol/connection.html">dropboxdol.connection</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../module_docs/dropboxdol/tests/base_test.html">dropboxdol.tests.base_test</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../module_docs/dropboxdol/tests/test_dropbox.html">dropboxdol.tests.test_dropbox</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../module_docs/dropboxdol/util.html">dropboxdol.util</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../index.html">dropboxdol</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../index.html">Module code</a></li>
+      <li class="breadcrumb-item active">dropboxdol.base</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <h1>Source code for dropboxdol.base</h1><div class="highlight"><pre>
+<span></span><span class="sd">&quot;&quot;&quot;Base functions for dropboxdol.&quot;&quot;&quot;</span>
+
+<span class="kn">from</span><span class="w"> </span><span class="nn">typing</span><span class="w"> </span><span class="kn">import</span> <span class="n">Union</span>
+
+<span class="kn">import</span><span class="w"> </span><span class="nn">dropbox</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">dropbox.exceptions</span><span class="w"> </span><span class="kn">import</span> <span class="n">ApiError</span><span class="p">,</span> <span class="n">AuthError</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">dropbox.sharing</span><span class="w"> </span><span class="kn">import</span> <span class="n">SharedLinkSettings</span><span class="p">,</span> <span class="n">RequestedVisibility</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">dropboxdol.util</span><span class="w"> </span><span class="kn">import</span> <span class="p">(</span>
+    <span class="c1"># get_access_token,</span>
+    <span class="c1"># DFLT_ACCESS_TOKEN,</span>
+    <span class="n">get_local_full_path</span><span class="p">,</span>
+    <span class="n">modify_url_dl</span><span class="p">,</span>
+    <span class="n">compute_dbx_file_path</span><span class="p">,</span>
+<span class="p">)</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">dropboxdol.connection</span><span class="w"> </span><span class="kn">import</span> <span class="n">get_client</span><span class="p">,</span> <span class="n">DFLT_CONFIG_FILE</span>
+
+
+<div class="viewcode-block" id="create_or_get_shared_link">
+<a class="viewcode-back" href="../../module_docs/dropboxdol/base.html#dropboxdol.base.create_or_get_shared_link">[docs]</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">create_or_get_shared_link</span><span class="p">(</span><span class="n">dbx</span><span class="p">:</span> <span class="n">dropbox</span><span class="o">.</span><span class="n">Dropbox</span><span class="p">,</span> <span class="n">dbx_file_path</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Create a shared link for the given Dropbox file path.</span>
+
+<span class="sd">    If a shared link already exists, list and return the first one.</span>
+<span class="sd">    Raises an exception with detailed information on authentication errors.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">settings</span> <span class="o">=</span> <span class="n">SharedLinkSettings</span><span class="p">(</span><span class="n">requested_visibility</span><span class="o">=</span><span class="n">RequestedVisibility</span><span class="o">.</span><span class="n">public</span><span class="p">)</span>
+    <span class="k">try</span><span class="p">:</span>
+        <span class="n">link_metadata</span> <span class="o">=</span> <span class="n">dbx</span><span class="o">.</span><span class="n">sharing_create_shared_link_with_settings</span><span class="p">(</span>
+            <span class="n">dbx_file_path</span><span class="p">,</span> <span class="n">settings</span>
+        <span class="p">)</span>
+        <span class="k">return</span> <span class="n">link_metadata</span><span class="o">.</span><span class="n">url</span>
+    <span class="k">except</span> <span class="n">ApiError</span> <span class="k">as</span> <span class="n">err</span><span class="p">:</span>
+        <span class="c1"># If the error indicates a shared link already exists, retrieve it.</span>
+        <span class="k">if</span> <span class="n">err</span><span class="o">.</span><span class="n">error</span><span class="o">.</span><span class="n">is_shared_link_already_exists</span><span class="p">():</span>
+            <span class="k">try</span><span class="p">:</span>
+                <span class="n">links</span> <span class="o">=</span> <span class="n">dbx</span><span class="o">.</span><span class="n">sharing_list_shared_links</span><span class="p">(</span>
+                    <span class="n">path</span><span class="o">=</span><span class="n">dbx_file_path</span><span class="p">,</span> <span class="n">direct_only</span><span class="o">=</span><span class="kc">True</span>
+                <span class="p">)</span><span class="o">.</span><span class="n">links</span>
+                <span class="k">if</span> <span class="n">links</span><span class="p">:</span>
+                    <span class="k">return</span> <span class="n">links</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">url</span>
+                <span class="k">else</span><span class="p">:</span>
+                    <span class="k">raise</span> <span class="ne">Exception</span><span class="p">(</span>
+                        <span class="s2">&quot;A shared link for the file exists but could not be retrieved.&quot;</span>
+                    <span class="p">)</span>
+            <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">list_err</span><span class="p">:</span>
+                <span class="k">raise</span> <span class="ne">Exception</span><span class="p">(</span>
+                    <span class="sa">f</span><span class="s2">&quot;Failed to list existing shared links for &#39;</span><span class="si">{</span><span class="n">dbx_file_path</span><span class="si">}</span><span class="s2">&#39;: </span><span class="si">{</span><span class="n">list_err</span><span class="si">}</span><span class="s2">&quot;</span>
+                <span class="p">)</span>
+        <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">err</span><span class="p">,</span> <span class="n">AuthError</span><span class="p">):</span>
+            <span class="k">raise</span> <span class="ne">Exception</span><span class="p">(</span>
+                <span class="s2">&quot;Authentication failed. The access token provided (or retrieved from environment variable) appears invalid. &quot;</span>
+                <span class="s2">&quot;First attempted to fetch the token from os.environ using the provided key; if not found, used the given access token. &quot;</span>
+                <span class="s2">&quot;Please verify that your access token is correct and has the necessary scopes.&quot;</span>
+            <span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">Exception</span><span class="p">(</span>
+                <span class="sa">f</span><span class="s2">&quot;Failed to create shared link for &#39;</span><span class="si">{</span><span class="n">dbx_file_path</span><span class="si">}</span><span class="s2">&#39;: </span><span class="si">{</span><span class="n">err</span><span class="si">}</span><span class="s2">&quot;</span>
+            <span class="p">)</span></div>
+
+
+
+<div class="viewcode-block" id="dropbox_link">
+<a class="viewcode-back" href="../../module_docs/dropboxdol/base.html#dropboxdol.base.dropbox_link">[docs]</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">dropbox_link</span><span class="p">(</span>
+    <span class="n">path</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
+    <span class="o">*</span><span class="p">,</span>
+    <span class="n">dropbox_local_rootdir</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="n">dl</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span>
+    <span class="n">access_config</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">dict</span><span class="p">]</span> <span class="o">=</span> <span class="n">DFLT_CONFIG_FILE</span><span class="p">,</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Returns a shareable Dropbox URL for the file at the given local path.</span>
+
+<span class="sd">    The function:</span>
+<span class="sd">      1. Retrieves the access token from os.environ using the given key or uses the provided token.</span>
+<span class="sd">      2. Determines the absolute local file path (using dropbox_path if needed).</span>
+<span class="sd">      3. Computes the Dropbox file path relative to the Dropbox folder.</span>
+<span class="sd">      4. Attempts to create a shared link, or retrieves an existing one if it already exists.</span>
+<span class="sd">      5. Modifies the URL to include the specified &#39;dl&#39; parameter (e.g., dl=1 for direct download).</span>
+
+<span class="sd">    Parameters:</span>
+<span class="sd">      path (str): The file path (absolute or relative).</span>
+<span class="sd">      dropbox_local_rootdir (Optional[str]): The local root Dropbox folder. If not provided, it will be inferred.</span>
+<span class="sd">      dl (int): The value for the &#39;dl&#39; parameter in the shared URL (default is 0).</span>
+<span class="sd">      access_config (str): The access configuration (dict or file path)</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">      str: The modified shared URL.</span>
+
+<span class="sd">    Raises:</span>
+<span class="sd">      FileNotFoundError: If the file does not exist.</span>
+<span class="sd">      Exception: For issues with path computation or Dropbox API errors.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="c1"># Get the access token</span>
+
+    <span class="c1"># Determine the local full path and Dropbox folder</span>
+    <span class="n">local_full_path</span><span class="p">,</span> <span class="n">dbx_root</span> <span class="o">=</span> <span class="n">get_local_full_path</span><span class="p">(</span><span class="n">path</span><span class="p">,</span> <span class="n">dropbox_local_rootdir</span><span class="p">)</span>
+
+    <span class="c1"># Compute the Dropbox file path</span>
+    <span class="n">dbx_file_path</span> <span class="o">=</span> <span class="n">compute_dbx_file_path</span><span class="p">(</span><span class="n">local_full_path</span><span class="p">,</span> <span class="n">dbx_root</span><span class="p">)</span>
+
+    <span class="c1"># Initialize the Dropbox client</span>
+    <span class="n">client</span> <span class="o">=</span> <span class="n">get_client</span><span class="p">(</span><span class="n">access_config</span><span class="p">)</span>
+
+    <span class="c1"># Create or retrieve the shared link</span>
+    <span class="n">shared_url</span> <span class="o">=</span> <span class="n">create_or_get_shared_link</span><span class="p">(</span><span class="n">client</span><span class="p">,</span> <span class="n">dbx_file_path</span><span class="p">)</span>
+
+    <span class="c1"># Modify the URL with the desired dl parameter</span>
+    <span class="n">final_url</span> <span class="o">=</span> <span class="n">modify_url_dl</span><span class="p">(</span><span class="n">shared_url</span><span class="p">,</span> <span class="n">dl</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">final_url</span></div>
+
+
+
+<span class="c1"># -----------------------------------------------------------------------------</span>
+<span class="c1"># Old stuff</span>
+
+
+<span class="kn">from</span><span class="w"> </span><span class="nn">dropbox</span><span class="w"> </span><span class="kn">import</span> <span class="n">Dropbox</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">dropbox.files</span><span class="w"> </span><span class="kn">import</span> <span class="n">DownloadError</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">dropbox.files</span><span class="w"> </span><span class="kn">import</span> <span class="ne">LookupError</span> <span class="k">as</span> <span class="n">DropboxLookupError</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">dropbox.exceptions</span><span class="w"> </span><span class="kn">import</span> <span class="n">ApiError</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">dropbox.files</span><span class="w"> </span><span class="kn">import</span> <span class="n">WriteMode</span><span class="p">,</span> <span class="n">SharedLink</span>
+
+<span class="kn">from</span><span class="w"> </span><span class="nn">dol.base</span><span class="w"> </span><span class="kn">import</span> <span class="n">Persister</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">dol.mixins</span><span class="w"> </span><span class="kn">import</span> <span class="n">ReadOnlyMixin</span>
+
+
+<span class="k">def</span><span class="w"> </span><span class="nf">_is_file_not_found_error</span><span class="p">(</span><span class="n">error_object</span><span class="p">):</span>
+    <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">error_object</span><span class="p">,</span> <span class="n">ApiError</span><span class="p">):</span>
+        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">error_object</span><span class="o">.</span><span class="n">args</span><span class="p">)</span> <span class="o">&gt;=</span> <span class="mi">2</span><span class="p">:</span>
+            <span class="n">err</span> <span class="o">=</span> <span class="n">error_object</span><span class="o">.</span><span class="n">args</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+            <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">err</span><span class="p">,</span> <span class="n">DownloadError</span><span class="p">)</span> <span class="ow">and</span> <span class="nb">isinstance</span><span class="p">(</span>
+                <span class="n">err</span><span class="o">.</span><span class="n">get_path</span><span class="p">(),</span> <span class="n">DropboxLookupError</span>
+            <span class="p">):</span>
+                <span class="k">return</span> <span class="kc">True</span>
+    <span class="k">return</span> <span class="kc">False</span>
+
+
+<div class="viewcode-block" id="DropboxPersister">
+<a class="viewcode-back" href="../../module_docs/dropboxdol/base.html#dropboxdol.base.DropboxPersister">[docs]</a>
+<span class="k">class</span><span class="w"> </span><span class="nc">DropboxPersister</span><span class="p">(</span><span class="n">Persister</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    A persister for dropbox.</span>
+<span class="sd">    You need to have the python connector (if you don&#39;t: pip install dropbox)</span>
+<span class="sd">    You also need to have a token for your dropbox app. If you don&#39;t it&#39;s a google away.</span>
+<span class="sd">    Finally, for the test below, you need to put this token in ~/.py2store_configs.json&#39; under key</span>
+<span class="sd">    dropbox.__init__kwargs, and have a folder named /py2store_data/test/ in your app space.</span>
+
+<span class="sd">    &gt;&gt;&gt; from dropboxdol.tests.test_dropbox import test_config</span>
+<span class="sd">    &gt;&gt;&gt; from dropboxdol import DropboxPersister</span>
+<span class="sd">    &gt;&gt;&gt; s = DropboxPersister(&#39;/py2store_data/test/&#39;, connection_config=test_config)</span>
+<span class="sd">    &gt;&gt;&gt; if &#39;/py2store_data/test/_can_remove&#39; in s:</span>
+<span class="sd">    ...     del s[&#39;/py2store_data/test/_can_remove&#39;]</span>
+<span class="sd">    ...</span>
+<span class="sd">    &gt;&gt;&gt;</span>
+<span class="sd">    &gt;&gt;&gt; n = len(s)</span>
+<span class="sd">    &gt;&gt;&gt; if n == 1:</span>
+<span class="sd">    ...     assert list(s) == [&#39;/py2store_data/test/_can_remove&#39;]</span>
+<span class="sd">    ...</span>
+<span class="sd">    &gt;&gt;&gt; s[&#39;/py2store_data/test/_can_remove&#39;] = b&#39;this is a test&#39;</span>
+<span class="sd">    &gt;&gt;&gt; assert len(s) == n + 1</span>
+<span class="sd">    &gt;&gt;&gt; assert s[&#39;/py2store_data/test/_can_remove&#39;] == b&#39;this is a test&#39;</span>
+<span class="sd">    &gt;&gt;&gt; &#39;/py2store_data/test/_can_remove&#39; in s</span>
+<span class="sd">    True</span>
+<span class="sd">    &gt;&gt;&gt; del s[&#39;/py2store_data/test/_can_remove&#39;]</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span>
+        <span class="n">rootdir</span><span class="o">=</span><span class="s1">&#39;&#39;</span><span class="p">,</span>
+        <span class="o">*</span><span class="p">,</span>
+        <span class="n">connection_config</span><span class="o">=</span><span class="n">DFLT_CONFIG_FILE</span><span class="p">,</span>
+        <span class="n">files_upload_kwargs</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+        <span class="n">files_list_folder_kwargs</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+        <span class="n">rev</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+    <span class="p">):</span>
+
+        <span class="k">if</span> <span class="n">connection_config</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">connection_config</span> <span class="o">=</span> <span class="p">{}</span>
+        <span class="k">if</span> <span class="n">files_upload_kwargs</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">files_upload_kwargs</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;mode&quot;</span><span class="p">:</span> <span class="n">WriteMode</span><span class="o">.</span><span class="n">overwrite</span><span class="p">}</span>
+        <span class="k">if</span> <span class="n">files_list_folder_kwargs</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">files_list_folder_kwargs</span> <span class="o">=</span> <span class="p">{</span>
+                <span class="s2">&quot;recursive&quot;</span><span class="p">:</span> <span class="kc">True</span><span class="p">,</span>
+                <span class="s2">&quot;include_non_downloadable_files&quot;</span><span class="p">:</span> <span class="kc">False</span><span class="p">,</span>
+            <span class="p">}</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">_prefix</span> <span class="o">=</span> <span class="n">rootdir</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_con</span> <span class="o">=</span> <span class="n">get_client</span><span class="p">(</span><span class="n">connection_config</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_connection_config</span> <span class="o">=</span> <span class="n">connection_config</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_files_upload_kwargs</span> <span class="o">=</span> <span class="n">files_upload_kwargs</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_files_list_folder_kwargs</span> <span class="o">=</span> <span class="n">files_list_folder_kwargs</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_rev</span> <span class="o">=</span> <span class="n">rev</span>
+
+    <span class="c1"># TODO: __len__ is taken from Persister, which iterates and counts. Not efficient. Find direct api for this!</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="fm">__iter__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">r</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_con</span><span class="o">.</span><span class="n">files_list_folder</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_prefix</span><span class="p">)</span>
+        <span class="k">yield from</span> <span class="p">(</span><span class="n">x</span><span class="o">.</span><span class="n">path_display</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">r</span><span class="o">.</span><span class="n">entries</span><span class="p">)</span>
+        <span class="n">cursor</span> <span class="o">=</span> <span class="n">r</span><span class="o">.</span><span class="n">cursor</span>
+        <span class="k">if</span> <span class="n">r</span><span class="o">.</span><span class="n">has_more</span><span class="p">:</span>
+            <span class="n">r</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_con</span><span class="o">.</span><span class="n">files_list_folder_continue</span><span class="p">(</span><span class="n">cursor</span><span class="p">)</span>
+            <span class="k">yield from</span> <span class="p">(</span><span class="n">x</span><span class="o">.</span><span class="n">path_display</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">r</span><span class="o">.</span><span class="n">entries</span><span class="p">)</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="fm">__getitem__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">k</span><span class="p">):</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">metadata</span><span class="p">,</span> <span class="n">contents_response</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_con</span><span class="o">.</span><span class="n">files_download</span><span class="p">(</span><span class="n">k</span><span class="p">)</span>
+        <span class="k">except</span> <span class="n">ApiError</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">_is_file_not_found_error</span><span class="p">(</span><span class="n">e</span><span class="p">):</span>
+                <span class="k">raise</span> <span class="ne">KeyError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Key doesn&#39;t exist: </span><span class="si">{</span><span class="n">k</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+            <span class="k">raise</span>
+
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">contents_response</span><span class="o">.</span><span class="n">status_code</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
+                <span class="s2">&quot;Response code wasn&#39;t 200 when trying to download a file (yet the file seems to exist).&quot;</span>
+            <span class="p">)</span>
+
+        <span class="k">return</span> <span class="n">contents_response</span><span class="o">.</span><span class="n">content</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="fm">__setitem__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">k</span><span class="p">,</span> <span class="n">v</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_con</span><span class="o">.</span><span class="n">files_upload</span><span class="p">(</span><span class="n">v</span><span class="p">,</span> <span class="n">k</span><span class="p">,</span> <span class="o">**</span><span class="bp">self</span><span class="o">.</span><span class="n">_files_upload_kwargs</span><span class="p">)</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="fm">__delitem__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">k</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_con</span><span class="o">.</span><span class="n">files_delete_v2</span><span class="p">(</span><span class="n">k</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_rev</span><span class="p">)</span></div>
+
+
+
+<span class="k">def</span><span class="w"> </span><span class="nf">_entry_is_dir</span><span class="p">(</span><span class="n">entry</span><span class="p">):</span>
+    <span class="k">return</span> <span class="ow">not</span> <span class="nb">hasattr</span><span class="p">(</span><span class="n">entry</span><span class="p">,</span> <span class="s2">&quot;is_downloadable&quot;</span><span class="p">)</span>
+
+
+<span class="k">def</span><span class="w"> </span><span class="nf">_entry_is_file</span><span class="p">(</span><span class="n">entry</span><span class="p">):</span>
+    <span class="k">return</span> <span class="nb">hasattr</span><span class="p">(</span><span class="n">entry</span><span class="p">,</span> <span class="s2">&quot;is_downloadable&quot;</span><span class="p">)</span>
+
+
+<span class="k">def</span><span class="w"> </span><span class="nf">_extend_path</span><span class="p">(</span><span class="n">path</span><span class="p">,</span> <span class="n">extension</span><span class="p">):</span>
+    <span class="n">extend_path</span> <span class="o">=</span> <span class="s2">&quot;/&quot;</span> <span class="o">+</span> <span class="n">path</span> <span class="o">+</span> <span class="s2">&quot;/&quot;</span> <span class="o">+</span> <span class="n">extension</span> <span class="o">+</span> <span class="s2">&quot;/&quot;</span>
+    <span class="n">extend_path</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s2">&quot;//&quot;</span><span class="p">,</span> <span class="s2">&quot;/&quot;</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">extend_path</span>
+
+
+<div class="viewcode-block" id="DropboxLinkReaderWithToken">
+<a class="viewcode-back" href="../../module_docs/dropboxdol/base.html#dropboxdol.base.DropboxLinkReaderWithToken">[docs]</a>
+<span class="k">class</span><span class="w"> </span><span class="nc">DropboxLinkReaderWithToken</span><span class="p">(</span><span class="n">ReadOnlyMixin</span><span class="p">,</span> <span class="n">DropboxPersister</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span>
+        <span class="n">url</span><span class="p">,</span>
+        <span class="n">connection_config</span><span class="o">=</span><span class="n">DFLT_CONFIG_FILE</span><span class="p">,</span>
+        <span class="o">*</span><span class="p">,</span>
+        <span class="c1"># copied from DropboxBase.files_list_folder</span>
+        <span class="n">path</span><span class="o">=</span><span class="s2">&quot;&quot;</span><span class="p">,</span>
+        <span class="n">recursive</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+        <span class="n">include_media_info</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+        <span class="n">include_deleted</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+        <span class="n">include_has_explicit_shared_members</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+        <span class="n">include_mounted_folders</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+        <span class="n">limit</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+        <span class="n">include_property_groups</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+        <span class="n">include_non_downloadable_files</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+    <span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_con</span> <span class="o">=</span> <span class="n">get_client</span><span class="p">(</span><span class="n">connection_config</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">url</span> <span class="o">=</span> <span class="n">url</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">shared_link</span> <span class="o">=</span> <span class="n">SharedLink</span><span class="p">(</span><span class="n">url</span><span class="o">=</span><span class="n">url</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">files_list_folder_kwargs</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span>
+            <span class="n">path</span><span class="o">=</span><span class="n">path</span><span class="p">,</span>
+            <span class="n">recursive</span><span class="o">=</span><span class="n">recursive</span><span class="p">,</span>
+            <span class="n">include_media_info</span><span class="o">=</span><span class="n">include_media_info</span><span class="p">,</span>
+            <span class="n">include_deleted</span><span class="o">=</span><span class="n">include_deleted</span><span class="p">,</span>
+            <span class="n">include_has_explicit_shared_members</span><span class="o">=</span><span class="n">include_has_explicit_shared_members</span><span class="p">,</span>
+            <span class="n">include_mounted_folders</span><span class="o">=</span><span class="n">include_mounted_folders</span><span class="p">,</span>
+            <span class="n">limit</span><span class="o">=</span><span class="n">limit</span><span class="p">,</span>
+            <span class="n">include_property_groups</span><span class="o">=</span><span class="n">include_property_groups</span><span class="p">,</span>
+            <span class="n">include_non_downloadable_files</span><span class="o">=</span><span class="n">include_non_downloadable_files</span><span class="p">,</span>
+        <span class="p">)</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="fm">__iter__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="p">(</span><span class="n">x</span><span class="o">.</span><span class="n">name</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_raw_iter</span><span class="p">())</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">_raw_iter</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">client</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_con</span>
+
+        <span class="n">result</span> <span class="o">=</span> <span class="n">client</span><span class="o">.</span><span class="n">files_list_folder</span><span class="p">(</span>
+            <span class="n">shared_link</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">shared_link</span><span class="p">,</span> <span class="o">**</span><span class="bp">self</span><span class="o">.</span><span class="n">files_list_folder_kwargs</span>
+        <span class="p">)</span>
+
+        <span class="k">yield from</span> <span class="n">result</span><span class="o">.</span><span class="n">entries</span>
+
+        <span class="k">while</span> <span class="n">result</span><span class="o">.</span><span class="n">has_more</span><span class="p">:</span>
+            <span class="n">result</span> <span class="o">=</span> <span class="n">client</span><span class="o">.</span><span class="n">files_list_folder_continue</span><span class="p">(</span><span class="n">result</span><span class="o">.</span><span class="n">cursor</span><span class="p">)</span>
+            <span class="k">yield from</span> <span class="n">result</span><span class="o">.</span><span class="n">entries</span></div>
+
+
+    <span class="c1"># TODO: Old. Delete when sure not needed</span>
+
+    <span class="c1"># def _yield_from_files_list_folder(self, path, path_gen):</span>
+    <span class="c1">#     &quot;&quot;&quot;</span>
+    <span class="c1">#     yield paths from path_gen, which can be a files_list_folder or a files_list_folder_continue,</span>
+    <span class="c1">#     in a depth search manner.</span>
+    <span class="c1">#     &quot;&quot;&quot;</span>
+    <span class="c1">#     for x in path_gen.entries:</span>
+    <span class="c1">#         if _entry_is_file(x):</span>
+    <span class="c1">#             yield x.path_display</span>
+    <span class="c1">#         else:</span>
+    <span class="c1">#             folder_path = _extend_path(path, x.name)</span>
+    <span class="c1">#             yield from self._get_path_gen_from_path(path=folder_path)</span>
+
+    <span class="c1">#     if path_gen.has_more:</span>
+    <span class="c1">#         yield from self._get_path_gen_from_cursor(path_gen.cursor, path=path)</span>
+
+    <span class="c1"># def _get_path_gen_from_path(self, path):</span>
+    <span class="c1">#     path_gen = self._con.files_list_folder(</span>
+    <span class="c1">#         path=path, recursive=False, shared_link=self.shared_link</span>
+    <span class="c1">#     )</span>
+    <span class="c1">#     yield from self._yield_from_files_list_folder(path, path_gen)</span>
+
+    <span class="c1"># def _get_path_gen_from_cursor(self, cursor, path):</span>
+    <span class="c1">#     path_gen = self._con.files_list_folder_continue(cursor)</span>
+    <span class="c1">#     yield from self._yield_from_files_list_folder(path, path_gen)</span>
+
+    <span class="c1"># def __iter__(self):</span>
+    <span class="c1">#     yield from self._get_path_gen_from_path(path=&quot;&quot;)</span>
+
+
+<span class="kn">from</span><span class="w"> </span><span class="nn">functools</span><span class="w"> </span><span class="kn">import</span> <span class="n">wraps</span>
+
+<span class="kn">from</span><span class="w"> </span><span class="nn">dol.base</span><span class="w"> </span><span class="kn">import</span> <span class="n">Store</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">dol.paths</span><span class="w"> </span><span class="kn">import</span> <span class="n">PrefixRelativizationMixin</span>
+
+
+<div class="viewcode-block" id="DropboxFiles">
+<a class="viewcode-back" href="../../module_docs/dropboxdol/base.html#dropboxdol.base.DropboxFiles">[docs]</a>
+<span class="k">class</span><span class="w"> </span><span class="nc">DropboxFiles</span><span class="p">(</span><span class="n">PrefixRelativizationMixin</span><span class="p">,</span> <span class="n">Store</span><span class="p">,</span> <span class="n">DropboxPersister</span><span class="p">):</span>
+    <span class="c1"># def __init__(</span>
+    <span class="c1">#     self,</span>
+    <span class="c1">#     rootdir=&#39;&#39;,</span>
+    <span class="c1">#     *,</span>
+    <span class="c1">#     connection_config=DFLT_CONFIG_FILE,</span>
+    <span class="c1">#     files_upload_kwargs=None,</span>
+    <span class="c1">#     files_list_folder_kwargs=None,</span>
+    <span class="c1">#     rev=None,</span>
+    <span class="c1"># ):</span>
+    <span class="c1">#     kwargs = {k: v for k, v in locals().items() if k != &quot;self&quot;}</span>
+    <span class="c1">#     super().__init__(store=DropboxPersister(**kwargs))</span>
+    <span class="c1">#     self._prefix = self.store._prefix</span>
+
+    <span class="nd">@wraps</span><span class="p">(</span><span class="n">DropboxPersister</span><span class="o">.</span><span class="fm">__init__</span><span class="p">)</span>
+    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">store</span><span class="o">=</span><span class="n">DropboxPersister</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">))</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_prefix</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">store</span><span class="o">.</span><span class="n">_prefix</span></div>
+
+
+
+<span class="n">DropboxBinaryStore</span> <span class="o">=</span> <span class="n">DropboxFiles</span>  <span class="c1"># backwards compatibility</span>
+
+
+<div class="viewcode-block" id="DropboxTextFiles">
+<a class="viewcode-back" href="../../module_docs/dropboxdol/base.html#dropboxdol.base.DropboxTextFiles">[docs]</a>
+<span class="k">class</span><span class="w"> </span><span class="nc">DropboxTextFiles</span><span class="p">(</span><span class="n">DropboxFiles</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">_obj_of_data</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">data</span><span class="p">):</span>
+        <span class="k">return</span> <span class="n">data</span><span class="o">.</span><span class="n">decode</span><span class="p">()</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">_data_of_obj</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">obj</span><span class="p">):</span>
+        <span class="k">return</span> <span class="n">obj</span><span class="o">.</span><span class="n">encode</span><span class="p">()</span></div>
+
+
+
+<span class="n">DropboxTextStore</span> <span class="o">=</span> <span class="n">DropboxTextFiles</span>  <span class="c1"># backwards compatibility</span>
+</pre></div>
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright NO COPYRIGHT.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

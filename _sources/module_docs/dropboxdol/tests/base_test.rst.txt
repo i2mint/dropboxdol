@@ -1,0 +1,4 @@
+dropboxdol.tests.base_test
+==========================
+.. automodule:: dropboxdol.tests.base_test
+   :members:
