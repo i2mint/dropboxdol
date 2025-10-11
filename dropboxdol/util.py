@@ -4,7 +4,7 @@ import os
 import re
 from functools import partial
 from typing import Tuple
-from config2py import get_app_data_folder
+from config2py import get_app_config_folder
 from importlib.resources import files
 from warnings import warn
 import json
@@ -23,7 +23,7 @@ data_files = files(pkg_name) / "data"
 
 app_data_dir = os.environ.get(f"{pkg_name.upper()}_APP_DATA_DIR", None)
 if app_data_dir is None:
-    app_data_dir = get_app_data_folder(pkg_name, ensure_exists=True)
+    app_data_dir = get_app_config_folder(pkg_name, ensure_exists=True)
 
 djoin = partial(os.path.join, app_data_dir)
 config_dir = dol.ensure_dir(
