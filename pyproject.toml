@@ -18,6 +18,7 @@ authors = []
 dependencies = [
     "dol",
     "dropbox",
+    "config2py",
 ]
 
 [project.license]
