@@ -27,7 +27,7 @@ if app_data_dir is None:
 
 djoin = partial(os.path.join, app_data_dir)
 config_dir = dol.ensure_dir(
-    djoin("config"), verbose=f'Making config dir: {djoin("config")}'
+    djoin("config"), verbose=f"Making config dir: {djoin('config')}"
 )
 config_join = partial(os.path.join, config_dir)
 
