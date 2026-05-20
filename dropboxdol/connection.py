@@ -133,7 +133,7 @@ def config_file_to_dict(config_filepath: str) -> dict:
                 "Please ensure it exists."
             )
 
-    with open(config_filepath, "rt") as f:
+    with open(config_filepath) as f:
         config = json.load(f)
 
     return config

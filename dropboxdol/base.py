@@ -62,7 +62,7 @@ def dropbox_link(
     *,
     dropbox_local_rootdir: str = None,
     dl: int = 0,
-    access_config: Union[str, dict] = DFLT_CONFIG_FILE,
+    access_config: str | dict = DFLT_CONFIG_FILE,
 ) -> str:
     """
     Returns a shareable Dropbox URL for the file at the given local path.

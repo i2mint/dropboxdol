@@ -71,7 +71,7 @@ def get_config_val(config_key: str) -> str:
 
 def get_local_full_path(
     path: str, dropbox_local_rootdir: str = None
-) -> Tuple[str, str]:
+) -> tuple[str, str]:
     """
     Determine the absolute local file path and the local Dropbox folder.
 
