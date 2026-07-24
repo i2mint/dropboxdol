@@ -45,9 +45,9 @@ do is mention the file to get the connection.
 from dropboxdol import create_config_file
 
 create_config_file(
-    config_file='NAME_OF_YOUR_APP_OR_WHATEVER_NAME_YOU_WILL_REMEMBER.json',
-    app_key='YOUR_APP_KEY', 
-    app_secret='YOUR_APP_SECRET',
+    config_file="NAME_OF_YOUR_APP_OR_WHATEVER_NAME_YOU_WILL_REMEMBER.json",
+    app_key="YOUR_APP_KEY",
+    app_secret="YOUR_APP_SECRET",
 )
 ```
 
@@ -58,7 +58,7 @@ you can update the tokens by doing this:
 from dropboxdol import complete_config_file_with_refresh_token
 
 complete_config_file_with_refresh_token(
-    config_file='NAME_OF_YOUR_APP_OR_WHATEVER_YOU_CALLED_THAT_CONFIG.json',
+    config_file="NAME_OF_YOUR_APP_OR_WHATEVER_YOU_CALLED_THAT_CONFIG.json",
 )
 ```
 
@@ -69,7 +69,7 @@ If you want to edit some configs, you can do so by editing the file directly, or
 from dropboxdol import create_or_edit_config_file
 
 create_or_edit_config_file(
-    config_file='CONFIG_FILE.json',
+    config_file="CONFIG_FILE.json",
     # whatever edits you want to make... (specifying None will skip that config, leaving it unchanged)
     oauth2_access_token=None,
     oauth2_refresh_token=None,
@@ -109,16 +109,16 @@ keys
 
 ```python
 from dropboxdol import DropboxFiles
-from i2 import Sig 
+from i2 import Sig
 
-t = DropboxFiles('/Apps/py2store/py2store_data')
+t = DropboxFiles("/Apps/py2store/py2store_data")
 list(t)
 ```
 
     ['/test', '/test.txt', '/another_test.txt']
 
 ```python
-t['/test.txt']
+t["/test.txt"]
 ```
 
     b'This is a test.\nSee it work.\nAnd what about unicode? \xc3\xa8\xc3\xa9\xc3\xaa\xc3\xab\xc4\x93\xc4\x97\xc4\x99?'
