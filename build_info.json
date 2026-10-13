@@ -1,36 +1,36 @@
 {
   "schema_version": 1,
-  "built_at": "2026-10-13T04:28:12Z",
+  "built_at": "2026-10-13T05:46:42Z",
   "package": {
     "name": "dropboxdol",
-    "version": "0.0.14",
+    "version": "0.0.15",
     "display_name": "dropboxdol",
     "source": "pyproject.toml"
   },
   "git": {
     "available": true,
-    "commit": "df831a4bc914dc4e8d81ad219913021c73bbb00c",
-    "short_commit": "df831a4",
+    "commit": "c86decf3c8f4f6e025ebdde84567df0b6fac5ea0",
+    "short_commit": "c86decf",
     "branch": "master",
     "tags": [],
     "dirty": false,
     "remote_url": "https://github.com/i2mint/dropboxdol",
-    "commit_url": "https://github.com/i2mint/dropboxdol/commit/df831a4bc914dc4e8d81ad219913021c73bbb00c",
+    "commit_url": "https://github.com/i2mint/dropboxdol/commit/c86decf3c8f4f6e025ebdde84567df0b6fac5ea0",
     "error": null
   },
   "ci": {
     "provider": "github",
     "repository": "i2mint/dropboxdol",
-    "sha": "df831a4bc914dc4e8d81ad219913021c73bbb00c",
+    "sha": "c86decf3c8f4f6e025ebdde84567df0b6fac5ea0",
     "sha_in_history": true,
     "ref": "refs/heads/master",
     "ref_name": "master",
-    "run_id": "38346472781",
-    "run_url": "https://github.com/i2mint/dropboxdol/actions/runs/38346472781",
+    "run_id": "38352995321",
+    "run_url": "https://github.com/i2mint/dropboxdol/actions/runs/38352995321",
     "server_url": "https://github.com"
   },
   "tools": {
-    "epythet": "0.2.13",
+    "epythet": "0.2.14",
     "sphinx": "9.1.0",
     "docutils": "0.22.4",
     "python": "3.12.15"
@@ -60,16 +60,16 @@
   },
   "pypi": {
     "checked": true,
-    "latest": "0.0.15",
+    "latest": "0.0.16",
     "relation": "behind",
     "error": null
   },
-  "reproduce": "git clone https://github.com/i2mint/dropboxdol && cd dropboxdol\ngit checkout df831a4bc914dc4e8d81ad219913021c73bbb00c\npip install \"epythet==0.2.13\"\nepythet quickstart . --ignore tests/ scrap/ examples/",
+  "reproduce": "git clone https://github.com/i2mint/dropboxdol && cd dropboxdol\ngit checkout c86decf3c8f4f6e025ebdde84567df0b6fac5ea0\npip install \"epythet==0.2.14\"\nepythet quickstart . --ignore tests/ scrap/ examples/",
   "warnings": [],
   "alignment": {
     "aligned": false,
     "notes": [
-      "The documented version (0.0.14) is behind the latest release on PyPI (0.0.15): `pip install dropboxdol` gives newer code than these docs describe."
+      "The documented version (0.0.15) is behind the latest release on PyPI (0.0.16): `pip install dropboxdol` gives newer code than these docs describe."
     ]
   }
 }

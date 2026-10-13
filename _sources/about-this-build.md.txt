@@ -5,19 +5,19 @@ orphan: true
 
 # About this build
 
-This documentation was built on **2026-10-13 04:28 UTC** from commit <a href="https://github.com/i2mint/dropboxdol/commit/df831a4bc914dc4e8d81ad219913021c73bbb00c"><code>df831a4</code></a> on branch <code>master</code>, for **dropboxdol 0.0.14** (from <code>pyproject.toml</code>).
+This documentation was built on **2026-10-13 05:46 UTC** from commit <a href="https://github.com/i2mint/dropboxdol/commit/c86decf3c8f4f6e025ebdde84567df0b6fac5ea0"><code>c86decf</code></a> on branch <code>master</code>, for **dropboxdol 0.0.15** (from <code>pyproject.toml</code>).
 
 :::{warning}
 The documentation and the package may be misaligned:
 
-- The documented version (0.0.14) is behind the latest release on PyPI (0.0.15): `pip install dropboxdol` gives newer code than these docs describe.
+- The documented version (0.0.15) is behind the latest release on PyPI (0.0.16): `pip install dropboxdol` gives newer code than these docs describe.
 :::
 
 ## Source
 
 | | |
 |---|---|
-| Commit | <a href="https://github.com/i2mint/dropboxdol/commit/df831a4bc914dc4e8d81ad219913021c73bbb00c"><code>df831a4bc914dc4e8d81ad219913021c73bbb00c</code></a> |
+| Commit | <a href="https://github.com/i2mint/dropboxdol/commit/c86decf3c8f4f6e025ebdde84567df0b6fac5ea0"><code>c86decf3c8f4f6e025ebdde84567df0b6fac5ea0</code></a> |
 | Branch | <code>master</code> |
 | Tags at this commit | none |
 | Working tree | clean |
@@ -28,15 +28,15 @@ The documentation and the package may be misaligned:
 | | |
 |---|---|
 | Repository | <code>i2mint/dropboxdol</code> |
-| Run | <a href="https://github.com/i2mint/dropboxdol/actions/runs/38346472781">38346472781</a> |
+| Run | <a href="https://github.com/i2mint/dropboxdol/actions/runs/38352995321">38352995321</a> |
 | Ref | <code>refs/heads/master</code> |
-| Event commit | <code>df831a4bc914dc4e8d81ad219913021c73bbb00c</code> (in the history of the built commit) |
+| Event commit | <code>c86decf3c8f4f6e025ebdde84567df0b6fac5ea0</code> (in the history of the built commit) |
 
 ## Tools
 
 | | |
 |---|---|
-| epythet | 0.2.13 |
+| epythet | 0.2.14 |
 | Sphinx | 9.1.0 |
 | docutils | 0.22.4 |
 | Python | 3.12.15 |
@@ -55,14 +55,14 @@ The documentation and the package may be misaligned:
 
 ## Package on PyPI
 
-Latest release: <a href="https://pypi.org/project/dropboxdol/0.0.15/">0.0.15</a>, newer than the documented version (0.0.14).
+Latest release: <a href="https://pypi.org/project/dropboxdol/0.0.16/">0.0.16</a>, newer than the documented version (0.0.15).
 
 ## Reproduce
 
 ```bash
 git clone https://github.com/i2mint/dropboxdol && cd dropboxdol
-git checkout df831a4bc914dc4e8d81ad219913021c73bbb00c
-pip install "epythet==0.2.13"
+git checkout c86decf3c8f4f6e025ebdde84567df0b6fac5ea0
+pip install "epythet==0.2.14"
 epythet quickstart . --ignore tests/ scrap/ examples/
 ```
 
