@@ -4,6 +4,7 @@ from typing import Union
 
 import dropbox
 from dropbox.exceptions import ApiError, AuthError
+from dropbox.stone_validators import ValidationError as _PathValidationError
 from dropbox.sharing import SharedLinkSettings, RequestedVisibility
 from dropboxdol.util import (
     # get_access_token,
@@ -214,6 +215,10 @@ class DropboxPersister(Persister):
             return False
         try:
             self._con.files_get_metadata(k)
+        except _PathValidationError:
+            # the SDK rejects, before any request, a key that isn't a valid path
+            # (e.g. 'a.txt' under the default rootdir ''): it can't be in the store
+            return False
         except ApiError as e:
             if _is_path_lookup_miss(e):
                 return False

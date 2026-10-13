@@ -117,6 +117,7 @@ def test_contains_false_when_path_not_found(lookup_error):
     s, con = _store("/r/", _page([]))
     con.files_get_metadata.side_effect = _lookup_error(lookup_error)
     assert "nope" not in s
+    con.files_get_metadata.assert_called_once_with("/r/nope")
 
 
 def test_contains_propagates_other_errors():
@@ -133,6 +134,23 @@ def test_persister_contains_false_for_non_string_keys():
     s, con = _store("/r/", _page([]), cls=base.DropboxPersister)
     assert 5 not in s
     con.files_get_metadata.assert_not_called()
+
+
+@pytest.mark.parametrize(
+    "cls, rootdir, key",
+    [(base.DropboxFiles, "", "a.txt"), (base.DropboxPersister, "/r/", "")],
+)
+def test_contains_false_for_keys_that_are_not_valid_paths(cls, rootdir, key):
+    """Uses a real SDK client (network methods are never reached): the SDK validates
+    the path itself and raises ``ValidationError``, which isn't an ``ApiError``."""
+    import dropbox
+
+    client = dropbox.Dropbox("not-a-real-token")
+    with mock.patch.object(base, "get_client", return_value=client):
+        s = cls(rootdir)
+    with mock.patch.object(client, "request") as request:
+        assert key not in s
+    request.assert_not_called()
 
 
 def test_persister_contains_uses_raw_path():
