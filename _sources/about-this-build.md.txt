@@ -5,19 +5,17 @@ orphan: true
 
 # About this build
 
-This documentation was built on **2026-10-13 05:46 UTC** from commit <a href="https://github.com/i2mint/dropboxdol/commit/c86decf3c8f4f6e025ebdde84567df0b6fac5ea0"><code>c86decf</code></a> on branch <code>master</code>, for **dropboxdol 0.0.15** (from <code>pyproject.toml</code>).
+This documentation was built on **2026-10-13 06:59 UTC** from commit <a href="https://github.com/i2mint/dropboxdol/commit/b23149232d815177b34300282c02d55ce56e105c"><code>b231492</code></a> on branch <code>master</code>, for **dropboxdol 0.0.16** (from <code>pyproject.toml</code>).
 
-:::{warning}
-The documentation and the package may be misaligned:
-
-- The documented version (0.0.15) is behind the latest release on PyPI (0.0.16): `pip install dropboxdol` gives newer code than these docs describe.
+:::{note}
+Nothing suggests a mismatch: the tree was clean at the commit above, and the documented version is the one on PyPI.
 :::
 
 ## Source
 
 | | |
 |---|---|
-| Commit | <a href="https://github.com/i2mint/dropboxdol/commit/c86decf3c8f4f6e025ebdde84567df0b6fac5ea0"><code>c86decf3c8f4f6e025ebdde84567df0b6fac5ea0</code></a> |
+| Commit | <a href="https://github.com/i2mint/dropboxdol/commit/b23149232d815177b34300282c02d55ce56e105c"><code>b23149232d815177b34300282c02d55ce56e105c</code></a> |
 | Branch | <code>master</code> |
 | Tags at this commit | none |
 | Working tree | clean |
@@ -28,9 +26,9 @@ The documentation and the package may be misaligned:
 | | |
 |---|---|
 | Repository | <code>i2mint/dropboxdol</code> |
-| Run | <a href="https://github.com/i2mint/dropboxdol/actions/runs/38352995321">38352995321</a> |
+| Run | <a href="https://github.com/i2mint/dropboxdol/actions/runs/38359727918">38359727918</a> |
 | Ref | <code>refs/heads/master</code> |
-| Event commit | <code>c86decf3c8f4f6e025ebdde84567df0b6fac5ea0</code> (in the history of the built commit) |
+| Event commit | <code>b23149232d815177b34300282c02d55ce56e105c</code> (in the history of the built commit) |
 
 ## Tools
 
@@ -55,13 +53,13 @@ The documentation and the package may be misaligned:
 
 ## Package on PyPI
 
-Latest release: <a href="https://pypi.org/project/dropboxdol/0.0.16/">0.0.16</a>, newer than the documented version (0.0.15).
+Latest release: <a href="https://pypi.org/project/dropboxdol/0.0.16/">0.0.16</a>, the same as the documented version.
 
 ## Reproduce
 
 ```bash
 git clone https://github.com/i2mint/dropboxdol && cd dropboxdol
-git checkout c86decf3c8f4f6e025ebdde84567df0b6fac5ea0
+git checkout b23149232d815177b34300282c02d55ce56e105c
 pip install "epythet==0.2.14"
 epythet quickstart . --ignore tests/ scrap/ examples/
 ```

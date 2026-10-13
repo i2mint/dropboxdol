@@ -1,32 +1,32 @@
 {
   "schema_version": 1,
-  "built_at": "2026-10-13T05:46:42Z",
+  "built_at": "2026-10-13T06:59:04Z",
   "package": {
     "name": "dropboxdol",
-    "version": "0.0.15",
+    "version": "0.0.16",
     "display_name": "dropboxdol",
     "source": "pyproject.toml"
   },
   "git": {
     "available": true,
-    "commit": "c86decf3c8f4f6e025ebdde84567df0b6fac5ea0",
-    "short_commit": "c86decf",
+    "commit": "b23149232d815177b34300282c02d55ce56e105c",
+    "short_commit": "b231492",
     "branch": "master",
     "tags": [],
     "dirty": false,
     "remote_url": "https://github.com/i2mint/dropboxdol",
-    "commit_url": "https://github.com/i2mint/dropboxdol/commit/c86decf3c8f4f6e025ebdde84567df0b6fac5ea0",
+    "commit_url": "https://github.com/i2mint/dropboxdol/commit/b23149232d815177b34300282c02d55ce56e105c",
     "error": null
   },
   "ci": {
     "provider": "github",
     "repository": "i2mint/dropboxdol",
-    "sha": "c86decf3c8f4f6e025ebdde84567df0b6fac5ea0",
+    "sha": "b23149232d815177b34300282c02d55ce56e105c",
     "sha_in_history": true,
     "ref": "refs/heads/master",
     "ref_name": "master",
-    "run_id": "38352995321",
-    "run_url": "https://github.com/i2mint/dropboxdol/actions/runs/38352995321",
+    "run_id": "38359727918",
+    "run_url": "https://github.com/i2mint/dropboxdol/actions/runs/38359727918",
     "server_url": "https://github.com"
   },
   "tools": {
@@ -61,15 +61,13 @@
   "pypi": {
     "checked": true,
     "latest": "0.0.16",
-    "relation": "behind",
+    "relation": "same",
     "error": null
   },
-  "reproduce": "git clone https://github.com/i2mint/dropboxdol && cd dropboxdol\ngit checkout c86decf3c8f4f6e025ebdde84567df0b6fac5ea0\npip install \"epythet==0.2.14\"\nepythet quickstart . --ignore tests/ scrap/ examples/",
+  "reproduce": "git clone https://github.com/i2mint/dropboxdol && cd dropboxdol\ngit checkout b23149232d815177b34300282c02d55ce56e105c\npip install \"epythet==0.2.14\"\nepythet quickstart . --ignore tests/ scrap/ examples/",
   "warnings": [],
   "alignment": {
-    "aligned": false,
-    "notes": [
-      "The documented version (0.0.15) is behind the latest release on PyPI (0.0.16): `pip install dropboxdol` gives newer code than these docs describe."
-    ]
+    "aligned": true,
+    "notes": []
   }
 }
