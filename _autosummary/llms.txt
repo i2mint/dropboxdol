@@ -1,0 +1,15 @@
+# dropboxdol
+
+> dropbox with a simple (dict-like or list-like) interface
+
+
+## Pages in this subsection
+
+- [dropboxdol](dropboxdol.html.md): Access dropbox with dict-like interface.
+- [dropboxdol.base](dropboxdol.base.html.md): Base functions for dropboxdol.
+- [dropboxdol.connection](dropboxdol.connection.html.md): Objects to connect to Dropbox.
+- [dropboxdol.util](dropboxdol.util.html.md): Utility functions for DropboxDOL.
+
+## Optional
+
+- [Top-level llms.txt](../llms.txt): Complete documentation index.

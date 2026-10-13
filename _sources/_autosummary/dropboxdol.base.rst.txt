@@ -1,0 +1,24 @@
+dropboxdol.base
+===============
+
+.. automodule:: dropboxdol.base
+
+   
+   .. rubric:: Functions
+
+   .. autosummary::
+   
+      create_or_get_shared_link
+      dropbox_link
+   
+   .. rubric:: Classes
+
+   .. autosummary::
+   
+      DropboxBinaryStore
+      DropboxFiles
+      DropboxLinkReaderWithToken
+      DropboxPersister
+      DropboxTextFiles
+      DropboxTextStore
+   

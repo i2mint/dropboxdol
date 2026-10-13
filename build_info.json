@@ -1,0 +1,75 @@
+{
+  "schema_version": 1,
+  "built_at": "2026-10-13T04:07:04Z",
+  "package": {
+    "name": "dropboxdol",
+    "version": "0.0.13",
+    "display_name": "dropboxdol",
+    "source": "pyproject.toml"
+  },
+  "git": {
+    "available": true,
+    "commit": "ea3d07eda1248494f5c0ac8681b38091ab3e9ecc",
+    "short_commit": "ea3d07e",
+    "branch": "master",
+    "tags": [],
+    "dirty": false,
+    "remote_url": "https://github.com/i2mint/dropboxdol",
+    "commit_url": "https://github.com/i2mint/dropboxdol/commit/ea3d07eda1248494f5c0ac8681b38091ab3e9ecc",
+    "error": null
+  },
+  "ci": {
+    "provider": "github",
+    "repository": "i2mint/dropboxdol",
+    "sha": "ea3d07eda1248494f5c0ac8681b38091ab3e9ecc",
+    "sha_in_history": true,
+    "ref": "refs/heads/master",
+    "ref_name": "master",
+    "run_id": "38344794337",
+    "run_url": "https://github.com/i2mint/dropboxdol/actions/runs/38344794337",
+    "server_url": "https://github.com"
+  },
+  "tools": {
+    "epythet": "0.2.13",
+    "sphinx": "9.1.0",
+    "docutils": "0.22.4",
+    "python": "3.12.15"
+  },
+  "config": {
+    "theme": "auto",
+    "html_theme": "shibuya",
+    "accent": "#913149",
+    "mode": "auto",
+    "api_generator": "autosummary",
+    "ignore": [
+      "tests/",
+      "scrap/",
+      "examples/"
+    ],
+    "agent_outputs": true,
+    "aggregates": [
+      "md"
+    ],
+    "ai_artifacts": true,
+    "provenance": true,
+    "docs_dir": "docsrc"
+  },
+  "site": {
+    "modules_documented": 4,
+    "objects_documented": 20
+  },
+  "pypi": {
+    "checked": true,
+    "latest": "0.0.14",
+    "relation": "behind",
+    "error": null
+  },
+  "reproduce": "git clone https://github.com/i2mint/dropboxdol && cd dropboxdol\ngit checkout ea3d07eda1248494f5c0ac8681b38091ab3e9ecc\npip install \"epythet==0.2.13\"\nepythet quickstart . --ignore tests/ scrap/ examples/",
+  "warnings": [],
+  "alignment": {
+    "aligned": false,
+    "notes": [
+      "The documented version (0.0.13) is behind the latest release on PyPI (0.0.14): `pip install dropboxdol` gives newer code than these docs describe."
+    ]
+  }
+}

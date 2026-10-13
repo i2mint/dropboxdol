@@ -1,4 +1,0 @@
-dropboxdol
-==========
-.. automodule:: dropboxdol
-   :members:

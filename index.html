@@ -1,171 +1,333 @@
-
-
 <!DOCTYPE html>
-<html class="writer-html5" lang="en" data-content_root="./">
+<html lang="en" data-accent-color="ruby" data-content_root="./">
 <head>
-  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
-
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Welcome to dropboxdol’s documentation! &mdash; dropboxdol 0.0.12 documentation</title>
-      <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=b86133f3" />
-      <link rel="stylesheet" type="text/css" href="_static/css/theme.css?v=9edc463e" />
-      <link rel="stylesheet" type="text/css" href="_static/copybutton.css?v=76b2166b" />
-      <link rel="stylesheet" type="text/css" href="_static/graphviz.css?v=4ae1632d" />
-
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"><title>dropboxdol</title><link rel="index" title="Index" href="genindex.html" /><link rel="search" title="Search" href="search.html" /><link rel="next" title="API reference" href="api.html" /><script>
+    function setColorMode(t){let e=document.documentElement;e.setAttribute("data-color-mode",t);let a=window.matchMedia&&window.matchMedia("(prefers-color-scheme: dark)").matches,s=t;"auto"===t&&(s=a?"dark":"light"),"light"===s?(e.classList.remove("dark"),e.classList.add("light")):(e.classList.remove("light"),e.classList.add("dark"))}
+    setColorMode(localStorage._theme||"auto");
+  </script><link rel="stylesheet" type="text/css" href="_static/pygments.css?v=d88b86f9" />
+    <link rel="stylesheet" type="text/css" href="_static/shibuya.css?v=2ceb65ce" />
+    <link rel="stylesheet" type="text/css" href="_static/copybutton.css?v=76b2166b" />
+    <link media="print" rel="stylesheet" type="text/css" href="_static/print.css?v=20ff2c19" />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root {
+  --sy-f-text: "Inter", var(--sy-f-sys), var(--sy-f-cjk), sans-serif;
+  --sy-f-heading: "Inter", var(--sy-f-sys), var(--sy-f-cjk), sans-serif;
+}
+</style>
+    
+  <meta property="og:type" content="website"/><meta property="og:title" content="dropboxdol"/>
+    <meta name="twitter:card" content="summary"/>
   
-      <script src="_static/jquery.js?v=5d32c60e"></script>
-      <script src="_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
-      <script src="_static/documentation_options.js?v=3bbcec59"></script>
+<link rel="alternate" type="text/markdown" href="index.html.md">
+<link rel="describedby" href="llms.txt" type="text/markdown">
+</head>
+<body><div class="sy-head">
+  <div class="sy-head-blur"></div>
+  <div class="sy-head-inner sy-container mx-auto">
+    <a class="sy-head-brand" href="#">
+      
+      
+      <strong>dropboxdol</strong>
+    </a>
+    <div class="sy-head-nav" id="head-nav">
+      <nav class="sy-head-links"></nav>
+      <div class="sy-head-extra flex items-center print:hidden"><form class="searchbox flex items-center" action="search.html" method="get">
+  <input type="text" name="q" placeholder="Search" />
+  <kbd>/</kbd>
+</form><div class="sy-head-socials">
+  <a href="https://github.com/i2mint/dropboxdol" aria-label="GitHub">
+    <iconify-icon icon="simple-icons:github"></iconify-icon>
+  </a></div></div>
+    </div>
+    <div class="sy-head-actions flex items-center shrink-0 print:hidden"><button class="js-theme theme-switch flex items-center"
+data-aria-auto="Switch to light color mode"
+data-aria-light="Switch to dark color mode"
+data-aria-dark="Switch to auto color mode">
+<i class="i-lucide theme-icon"></i>
+</button><button class="md:hidden flex items-center js-menu" aria-label="Menu" type="button" aria-controls="head-nav" aria-expanded="false">
+        <div class="hamburger">
+          <span class="hamburger_1"></span>
+          <span class="hamburger_2"></span>
+          <span class="hamburger_3"></span>
+        </div>
+      </button>
+    </div>
+  </div>
+</div>
+<div class="sy-page sy-container flex mx-auto">
+  <aside id="lside" class="sy-lside md:w-72 md:shrink-0 print:hidden">
+    <div class="sy-lside-inner md:sticky">
+      <div class="sy-scrollbar p-6">
+        <div class="globaltoc" data-expand-depth="0"><ul>
+<li class="toctree-l1"><a class="reference internal" href="api.html">API reference</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="_autosummary/dropboxdol.html">dropboxdol</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="_autosummary/dropboxdol.base.html">dropboxdol.base</a></li>
+<li class="toctree-l3"><a class="reference internal" href="_autosummary/dropboxdol.connection.html">dropboxdol.connection</a></li>
+<li class="toctree-l3"><a class="reference internal" href="_autosummary/dropboxdol.util.html">dropboxdol.util</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+        </div>
+      </div>
+    </div>
+  </aside>
+  <div class="lside-overlay js-menu" role="button" aria-label="Close left sidebar" aria-controls="lside" aria-expanded="false"></div>
+  <aside id="rside" class="sy-rside pb-3 w-64 shrink-0 order-last">
+    <button class="rside-close js-menu xl:hidden" aria-label="Close Table of Contents" type="button" aria-controls="rside" aria-expanded="false">
+      <i class="i-lucide close"></i>
+    </button>
+    <div class="sy-scrollbar sy-rside-inner px-6 xl:top-16 xl:sticky xl:pl-0 pt-6 pb-4"><div class="localtoc"><h3>On this page</h3><ul>
+<li><a class="reference internal" href="#">dropboxdol</a></li>
+<li><a class="reference internal" href="#setup">Setup</a></li>
+<li><a class="reference internal" href="#examples">Examples</a><ul>
+<li><a class="reference internal" href="#get-a-dropbox-store">Get a dropbox “store”</a><ul>
+<li><a class="reference internal" href="#from-a-link">From a link</a></li>
+<li><a class="reference internal" href="#from-a-local-path-but-talking-to-the-remote-files">From a local path (but talking to the remote files)</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#get-dropbox-links-for-local-files-folders">Get dropbox links for local files/folders</a></li>
+<li><a class="reference internal" href="#easy-read-write-access-to-your-dropbox-files">Easy read/write access to your dropbox files</a></li>
+</ul>
+</li>
+</ul>
+</div><div id="ethical-ad-placement" data-ea-publisher="readthedocs"></div></div>
+  </aside>
+  <div class="rside-overlay js-menu" role="button" aria-label="Close Table of Contents" aria-controls="rside" aria-expanded="false"></div>
+  <main class="sy-main w-full max-sm:max-w-full print:pt-6">
+<div class="sy-breadcrumbs" role="navigation">
+  <div class="sy-breadcrumbs-inner flex items-center">
+    <div class="md:hidden mr-3">
+      <button class="js-menu" aria-label="Menu" type="button" aria-controls="lside" aria-expanded="false">
+        <i class="i-lucide menu"></i>
+      </button>
+    </div>
+    <ol class="flex-1" itemscope itemtype="https://schema.org/BreadcrumbList"><li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
+        <a itemprop="item" href="#"><span itemprop="name">dropboxdol</span></a>
+        <meta itemprop="position" content="1" />
+      </li></ol>
+    <div class="xl:hidden ml-1">
+      <button class="js-menu" aria-label="Show table of contents" type="button" aria-controls="rside"
+        aria-expanded="false">
+        <i class="i-lucide outdent"></i>
+      </button>
+    </div>
+  </div>
+</div><div class="flex flex-col break-words justify-between">
+      <div class="relative min-w-0 max-w-6xl px-6 pb-6 pt-8 xl:px-12">
+  <article class="yue dark-code" role="main">
+          <!-- generated by epythet -->
+<section id="dropboxdol">
+<h1>dropboxdol<a class="headerlink" href="#dropboxdol" title="Link to this heading">#</a></h1>
+<p>dropbox with a simple (dict-like or list-like) interface</p>
+<p>To install:	<code class="docutils literal notranslate"><span class="pre">pip</span> <span class="pre">install</span> <span class="pre">dropboxdol</span></code></p>
+</section>
+<section id="setup">
+<h1>Setup<a class="headerlink" href="#setup" title="Link to this heading">#</a></h1>
+<p>Note: To use <code class="docutils literal notranslate"><span class="pre">dropboxdol</span></code>, you’ll need to have a dropbox access token.
+Additionally, that token should be allowed to do the operation that you are doing.
+For example, you only need the “sharing.write” permission to CREATE a (new) shared link.</p>
+<p>See more information in <a class="reference external" href="https://developers.dropbox.com/oauth-guide">Dropbox’s Auth Guide</a>.</p>
+<p>By default, <code class="docutils literal notranslate"><span class="pre">dropboxdol</span></code> looks for the access tokens and other information is
+(well, really, the dropbox API) needs)
+in the <code class="docutils literal notranslate"><span class="pre">&quot;default_dropbox_config.json&quot;</span></code> file of the dropboxdol app data.
+You can interact with those files via <code class="docutils literal notranslate"><span class="pre">dropboxdol.config_store</span></code>, which has a dict-like interface to the files in that folder.</p>
+<p>If you don’t have a <code class="docutils literal notranslate"><span class="pre">&quot;default_dropbox_config.json&quot;</span></code> file, you’ll need to specify the
+connection config explicitly (by specifying a config dict, a filepath, filename of the
+<code class="docutils literal notranslate"><span class="pre">config_store</span></code>).</p>
+<p>Note that at this point, dropbox only dishes out temporary access tokens.
+This means you can’t just save an access token once and be over with it.
+So to get the convenience of automatic connections, you’ll need to specify not only a
+<code class="docutils literal notranslate"><span class="pre">oauth2_access_token</span></code>, but also a <code class="docutils literal notranslate"><span class="pre">oauth2_refresh_token</span></code>, an <code class="docutils literal notranslate"><span class="pre">app_key</span></code> and an <code class="docutils literal notranslate"><span class="pre">app_secret</span></code>.</p>
+<p>You can read all about that annoying stuff in the <a class="reference external" href="https://developers.dropbox.com/oauth-guide">Dropbox’s Auth Guide</a>.</p>
+<p>But here’s a few things to make it a bit less painful:</p>
+<ul class="simple">
+<li><p>make an “app” in the <a class="reference external" href="https://www.dropbox.com/developers/apps?_tk=pilot_lp&amp;_ad=topbar4&amp;_camp=myapps">app console</a></p></li>
+<li><p>specify scope and permissions you want on it</p></li>
+<li><p>note down the app key and the app secret</p></li>
+</ul>
+<p>then use the following, which will walk you through the steps to get your access and refresh tokens.</p>
+<p>These will then be stored in the <code class="docutils literal notranslate"><span class="pre">config_file</span></code> of your choice, so that all you have to
+do is mention the file to get the connection.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span data-line="1"><span class="kn">from</span><span class="w"> </span><span class="nn">dropboxdol</span><span class="w"> </span><span class="kn">import</span> <span class="n">create_config_file</span>
+</span><span data-line="2">
+</span><span data-line="3"><span class="n">create_config_file</span><span class="p">(</span>
+</span><span data-line="4">    <span class="n">config_file</span><span class="o">=</span><span class="s2">"NAME_OF_YOUR_APP_OR_WHATEVER_NAME_YOU_WILL_REMEMBER.json"</span><span class="p">,</span>
+</span><span data-line="5">    <span class="n">app_key</span><span class="o">=</span><span class="s2">"YOUR_APP_KEY"</span><span class="p">,</span>
+</span><span data-line="6">    <span class="n">app_secret</span><span class="o">=</span><span class="s2">"YOUR_APP_SECRET"</span><span class="p">,</span>
+</span><span data-line="7"><span class="p">)</span>
+</span></pre></div>
+</div>
+<p>If you already have a config file for this app, with app_key and app_secret,
+you can update the tokens by doing this:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span data-line="1"><span class="kn">from</span><span class="w"> </span><span class="nn">dropboxdol</span><span class="w"> </span><span class="kn">import</span> <span class="n">complete_config_file_with_refresh_token</span>
+</span><span data-line="2">
+</span><span data-line="3"><span class="n">complete_config_file_with_refresh_token</span><span class="p">(</span>
+</span><span data-line="4">    <span class="n">config_file</span><span class="o">=</span><span class="s2">"NAME_OF_YOUR_APP_OR_WHATEVER_YOU_CALLED_THAT_CONFIG.json"</span><span class="p">,</span>
+</span><span data-line="5"><span class="p">)</span>
+</span></pre></div>
+</div>
+<p>If you want to edit some configs, you can do so by editing the file directly, or use
+<code class="docutils literal notranslate"><span class="pre">create_or_edit_config_file</span></code>.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span data-line="1"><span class="kn">from</span><span class="w"> </span><span class="nn">dropboxdol</span><span class="w"> </span><span class="kn">import</span> <span class="n">create_or_edit_config_file</span>
+</span><span data-line="2">
+</span><span data-line="3"><span class="n">create_or_edit_config_file</span><span class="p">(</span>
+</span><span data-line="4">    <span class="n">config_file</span><span class="o">=</span><span class="s2">"CONFIG_FILE.json"</span><span class="p">,</span>
+</span><span data-line="5">    <span class="c1"># whatever edits you want to make... (specifying None will skip that config, leaving it unchanged)</span>
+</span><span data-line="6">    <span class="n">oauth2_access_token</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+</span><span data-line="7">    <span class="n">oauth2_refresh_token</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+</span><span data-line="8">    <span class="n">app_key</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+</span><span data-line="9">    <span class="n">app_secret</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+</span><span data-line="10"><span class="p">)</span>
+</span></pre></div>
+</div>
+</section>
+<section id="examples">
+<h1>Examples<a class="headerlink" href="#examples" title="Link to this heading">#</a></h1>
+<section id="get-a-dropbox-store">
+<h2>Get a dropbox “store”<a class="headerlink" href="#get-a-dropbox-store" title="Link to this heading">#</a></h2>
+<section id="from-a-link">
+<h3>From a link<a class="headerlink" href="#from-a-link" title="Link to this heading">#</a></h3>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span data-line="1"><span class="kn">from</span><span class="w"> </span><span class="nn">dropboxdol</span><span class="w"> </span><span class="kn">import</span> <span class="n">DropboxLinkReaderWithToken</span>
+</span><span data-line="2">
+</span><span data-line="3"><span class="n">s</span> <span class="o">=</span> <span class="n">DropboxLinkReaderWithToken</span><span class="p">(</span>
+</span><span data-line="4">    <span class="n">url</span><span class="o">=</span><span class="s2">"https://www.dropbox.com/sh/0ru09jmk0w9tdnr/AAA-PPON2sYmwUUoGQpBQh1Ia?dl=0"</span>
+</span><span data-line="5"><span class="p">)</span>
+</span><span data-line="6"><span class="n">keys</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">s</span><span class="p">)</span>
+</span><span data-line="7"><span class="n">keys</span>
+</span></pre></div>
+</div>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span><span data-line="1">['inner_folder',
+</span><span data-line="2">'b1467f55540c4695bf483bc542e43256',
+</span><span data-line="3">'0b98e2af76c94a0a9cc2808866dd62de',
+</span><span data-line="4">'3372aa35ea444c758bfa2e4599b2576d',
+</span><span data-line="5">'9de9d98a4c4648cca1bc1131c307a365',
+</span><span data-line="6">'91c744890d374dd8bc914f1153311b0c',
+</span><span data-line="7">'57af886dd22f4a23a678a3de3eb996a0',
+</span><span data-line="8">'43ba127e5e9245ec983c9f39e4ed7306']
+</span></pre></div>
+</div>
+</section>
+<section id="from-a-local-path-but-talking-to-the-remote-files">
+<h3>From a local path (but talking to the remote files)<a class="headerlink" href="#from-a-local-path-but-talking-to-the-remote-files" title="Link to this heading">#</a></h3>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span data-line="1"><span class="kn">from</span><span class="w"> </span><span class="nn">dropboxdol</span><span class="w"> </span><span class="kn">import</span> <span class="n">DropboxFiles</span>
+</span><span data-line="2"><span class="kn">from</span><span class="w"> </span><span class="nn">i2</span><span class="w"> </span><span class="kn">import</span> <span class="n">Sig</span>
+</span><span data-line="3">
+</span><span data-line="4"><span class="n">t</span> <span class="o">=</span> <span class="n">DropboxFiles</span><span class="p">(</span><span class="s2">"/Apps/py2store/py2store_data"</span><span class="p">)</span>
+</span><span data-line="5"><span class="nb">list</span><span class="p">(</span><span class="n">t</span><span class="p">)</span>
+</span></pre></div>
+</div>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span><span data-line="1">['/test', '/test.txt', '/another_test.txt']
+</span></pre></div>
+</div>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span data-line="1"><span class="n">t</span><span class="p">[</span><span class="s2">"/test.txt"</span><span class="p">]</span>
+</span></pre></div>
+</div>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span><span data-line="1">b'This is a test.\nSee it work.\nAnd what about unicode? \xc3\xa8\xc3\xa9\xc3\xaa\xc3\xab\xc4\x93\xc4\x97\xc4\x99?'
+</span></pre></div>
+</div>
+</section>
+</section>
+<section id="get-dropbox-links-for-local-files-folders">
+<h2>Get dropbox links for local files/folders<a class="headerlink" href="#get-dropbox-links-for-local-files-folders" title="Link to this heading">#</a></h2>
+<p>(Your token needs the “sharing.write” permission to CREATE a (new) shared link.)</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span data-line="1"><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span><span class="w"> </span><span class="nn">dropboxdol</span><span class="w"> </span><span class="kn">import</span> <span class="n">dropbox_link</span>
+</span><span data-line="2"><span class="gp">&gt;&gt;&gt; </span><span class="n">local_file</span> <span class="o">=</span> <span class="s1">'/Users/thorwhalen/Dropbox/Apps/py2store/py2store_data/test.txt'</span>
+</span><span data-line="3"><span class="gp">&gt;&gt;&gt; </span><span class="n">dropbox_url</span> <span class="o">=</span> <span class="n">dropbox_link</span><span class="p">(</span><span class="n">local_file</span><span class="p">)</span>
+</span><span data-line="4"><span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">dropbox_url</span><span class="p">)</span>
+</span></pre></div>
+</div>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span><span data-line="1">https://www.dropbox.com/scl/fi/3o8ooqje4f497npxdeiwg/test.txt?rlkey=x9jsd8u7k147x6fzc7stxozqe&amp;dl=0
+</span></pre></div>
+</div>
+<p>If you want to talk “relative” to the dropbox root dir, do this:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span data-line="1"><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span><span class="w"> </span><span class="nn">functools</span><span class="w"> </span><span class="kn">import</span> <span class="n">partial</span>
+</span><span data-line="2"><span class="gp">&gt;&gt;&gt; </span><span class="n">my_dropbox_link</span> <span class="o">=</span> <span class="n">partial</span><span class="p">(</span><span class="n">dropbox_link</span><span class="p">,</span> <span class="n">dropbox_local_rootdir</span><span class="o">=</span><span class="s1">'/Users/thorwhalen/Dropbox'</span><span class="p">)</span>
+</span></pre></div>
+</div>
+<p>If you want a “direct (download) link”, do this:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span data-line="1"><span class="gp">&gt;&gt;&gt; </span><span class="n">dl1_link</span> <span class="o">=</span> <span class="n">my_dropbox_link</span><span class="p">(</span><span class="s1">'Apps/py2store/py2store_data/test.txt'</span><span class="p">,</span> <span class="n">dl</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+</span></pre></div>
+</div>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span><span data-line="1">'https://www.dropbox.com/scl/fi/3o8ooqje4f497npxdeiwg/test.txt?rlkey=x9jsd8u7k147x6fzc7stxozqe&amp;dl=1'
+</span></pre></div>
+</div>
+</section>
+<section id="easy-read-write-access-to-your-dropbox-files">
+<h2>Easy read/write access to your dropbox files<a class="headerlink" href="#easy-read-write-access-to-your-dropbox-files" title="Link to this heading">#</a></h2>
+<p>A persister for dropbox.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span data-line="1"><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span><span class="w"> </span><span class="nn">json</span>
+</span><span data-line="2"><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span><span class="w"> </span><span class="nn">os</span>
+</span><span data-line="3"><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span><span class="w"> </span><span class="nn">dropboxdol</span><span class="w"> </span><span class="kn">import</span> <span class="n">DropboxPersister</span>
+</span><span data-line="4"><span class="gp">&gt;&gt;&gt; </span><span class="n">configs</span> <span class="o">=</span> <span class="n">json</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="nb">open</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">expanduser</span><span class="p">(</span><span class="s1">'~/.py2store_configs.json'</span><span class="p">)))</span>
+</span><span data-line="5"><span class="gp">&gt;&gt;&gt; </span><span class="n">s</span> <span class="o">=</span> <span class="n">DropboxPersister</span><span class="p">(</span><span class="s1">'/py2store_data/test/'</span><span class="p">,</span> <span class="o">**</span><span class="n">configs</span><span class="p">[</span><span class="s1">'dropbox'</span><span class="p">][</span><span class="s1">'__init__kwargs'</span><span class="p">])</span>
+</span><span data-line="6"><span class="gp">&gt;&gt;&gt; </span><span class="k">if</span> <span class="s1">'/py2store_data/test/_can_remove'</span> <span class="ow">in</span> <span class="n">s</span><span class="p">:</span>
+</span><span data-line="7"><span class="gp">... </span>    <span class="k">del</span> <span class="n">s</span><span class="p">[</span><span class="s1">'/py2store_data/test/_can_remove'</span><span class="p">]</span>
+</span><span data-line="8"><span class="gp">...</span>
+</span><span data-line="9"><span class="gp">&gt;&gt;&gt;</span>
+</span><span data-line="10"><span class="gp">&gt;&gt;&gt; </span><span class="n">n</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">s</span><span class="p">)</span>
+</span><span data-line="11"><span class="gp">&gt;&gt;&gt; </span><span class="k">if</span> <span class="n">n</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
+</span><span data-line="12"><span class="gp">... </span>    <span class="k">assert</span> <span class="nb">list</span><span class="p">(</span><span class="n">s</span><span class="p">)</span> <span class="o">==</span> <span class="p">[</span><span class="s1">'/py2store_data/test/_can_remove'</span><span class="p">]</span>
+</span><span data-line="13"><span class="gp">...</span>
+</span><span data-line="14"><span class="gp">&gt;&gt;&gt; </span><span class="n">s</span><span class="p">[</span><span class="s1">'/py2store_data/test/_can_remove'</span><span class="p">]</span> <span class="o">=</span> <span class="sa">b</span><span class="s1">'this is a test'</span>
+</span><span data-line="15"><span class="gp">&gt;&gt;&gt; </span><span class="k">assert</span> <span class="nb">len</span><span class="p">(</span><span class="n">s</span><span class="p">)</span> <span class="o">==</span> <span class="n">n</span> <span class="o">+</span> <span class="mi">1</span>
+</span><span data-line="16"><span class="gp">&gt;&gt;&gt; </span><span class="k">assert</span> <span class="n">s</span><span class="p">[</span><span class="s1">'/py2store_data/test/_can_remove'</span><span class="p">]</span> <span class="o">==</span> <span class="sa">b</span><span class="s1">'this is a test'</span>
+</span><span data-line="17"><span class="gp">&gt;&gt;&gt; </span><span class="s1">'/py2store_data/test/_can_remove'</span> <span class="ow">in</span> <span class="n">s</span>
+</span><span data-line="18"><span class="go">True</span>
+</span><span data-line="19"><span class="gp">&gt;&gt;&gt; </span><span class="k">del</span> <span class="n">s</span><span class="p">[</span><span class="s1">'/py2store_data/test/_can_remove'</span><span class="p">]</span>
+</span></pre></div>
+</div>
+<p class="epythet-aggregates">This documentation as a single file: <a href="dropboxdol.md">dropboxdol.md</a> (Markdown, for agents).</p>
+<div class="toctree-wrapper compound">
+</div>
+</section>
+</section>
+
+<p class="epythet-provenance" style="font-size:.8em;opacity:.65;margin-top:2.5em;text-align:right">built 2026-10-13 04:07 UTC from <a href="https://github.com/i2mint/dropboxdol/commit/ea3d07eda1248494f5c0ac8681b38091ab3e9ecc">ea3d07e</a> (master) · dropboxdol 0.0.13 · <a href="about-this-build.html">about this build</a></p>
+        </article><button class="back-to-top" type="button">
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+    <path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8v12z"></path>
+  </svg>
+  <span>Back to top</span>
+</button><div class="navigation flex print:hidden"><div class="navigation-next">
+    <a href="api.html">
+      <div class="page-info">
+        <span>Next</span>
+        <div class="title">API reference</div>
+      </div>
+      <i class="i-lucide chevron-right"></i>
+    </a>
+  </div></div></div>
+    </div>
+  </main>
+</div>
+<footer class="sy-foot">
+  <div class="sy-foot-inner sy-container mx-auto">
+    <div class="sy-foot-reserved md:flex justify-between items-center">
+      <div class="sy-foot-copyright">
+  <p>
+    Made with
+    
+    <a href="https://shibuya.lepture.com">Shibuya theme</a>.
+  </p>
+</div>
+      <div class="sy-foot-socials">
+  <a href="https://github.com/i2mint/dropboxdol" aria-label="GitHub">
+    <iconify-icon icon="simple-icons:github"></iconify-icon>
+  </a></div>
+    </div>
+  </div>
+</footer>
+      <script src="_static/documentation_options.js?v=9fc46840"></script>
       <script src="_static/doctools.js?v=fd6eb6e6"></script>
       <script src="_static/sphinx_highlight.js?v=6ffebe34"></script>
-      <script src="_static/toggleprompt.js?v=d7ede5d2"></script>
       <script src="_static/clipboard.min.js?v=a7894cd8"></script>
-      <script src="_static/copybutton.js?v=f281be69"></script>
-    <script src="_static/js/theme.js"></script>
-    <link rel="index" title="Index" href="genindex.html" />
-    <link rel="search" title="Search" href="search.html" />
-    <link rel="next" title="dropboxdol" href="module_docs/dropboxdol.html" /> 
-</head>
-
-<body class="wy-body-for-nav"> 
-  <div class="wy-grid-for-nav">
-    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
-      <div class="wy-side-scroll">
-        <div class="wy-side-nav-search" >
-
-          
-          
-          <a href="#" class="icon icon-home">
-            dropboxdol
-          </a>
-<div role="search">
-  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
-    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
-    <input type="hidden" name="check_keywords" value="yes" />
-    <input type="hidden" name="area" value="default" />
-  </form>
-</div>
-        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
-              <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
-<ul>
-<li class="toctree-l1"><a class="reference internal" href="module_docs/dropboxdol.html">dropboxdol</a></li>
-<li class="toctree-l1"><a class="reference internal" href="module_docs/dropboxdol/base.html">dropboxdol.base</a></li>
-<li class="toctree-l1"><a class="reference internal" href="module_docs/dropboxdol/connection.html">dropboxdol.connection</a></li>
-<li class="toctree-l1"><a class="reference internal" href="module_docs/dropboxdol/tests/base_test.html">dropboxdol.tests.base_test</a></li>
-<li class="toctree-l1"><a class="reference internal" href="module_docs/dropboxdol/tests/test_dropbox.html">dropboxdol.tests.test_dropbox</a></li>
-<li class="toctree-l1"><a class="reference internal" href="module_docs/dropboxdol/util.html">dropboxdol.util</a></li>
-</ul>
-
-        </div>
-      </div>
-    </nav>
-
-    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
-          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
-          <a href="#">dropboxdol</a>
-      </nav>
-
-      <div class="wy-nav-content">
-        <div class="rst-content">
-          <div role="navigation" aria-label="Page navigation">
-  <ul class="wy-breadcrumbs">
-      <li><a href="#" class="icon icon-home" aria-label="Home"></a></li>
-      <li class="breadcrumb-item active">Welcome to dropboxdol’s documentation!</li>
-      <li class="wy-breadcrumbs-aside">
-            <a href="_sources/index.rst.txt" rel="nofollow"> View page source</a>
-      </li>
-  </ul>
-  <hr/>
-</div>
-          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
-           <div itemprop="articleBody">
-             
-  <section id="welcome-to-dropboxdol-s-documentation">
-<h1>Welcome to dropboxdol’s documentation!<a class="headerlink" href="#welcome-to-dropboxdol-s-documentation" title="Link to this heading"></a></h1>
-<div class="toctree-wrapper compound">
-<p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
-<ul>
-<li class="toctree-l1"><a class="reference internal" href="module_docs/dropboxdol.html">dropboxdol</a></li>
-<li class="toctree-l1"><a class="reference internal" href="module_docs/dropboxdol/base.html">dropboxdol.base</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="module_docs/dropboxdol/base.html#dropboxdol.base.DropboxBinaryStore"><code class="docutils literal notranslate"><span class="pre">DropboxBinaryStore</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="module_docs/dropboxdol/base.html#dropboxdol.base.DropboxFiles"><code class="docutils literal notranslate"><span class="pre">DropboxFiles</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="module_docs/dropboxdol/base.html#dropboxdol.base.DropboxLinkReaderWithToken"><code class="docutils literal notranslate"><span class="pre">DropboxLinkReaderWithToken</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="module_docs/dropboxdol/base.html#dropboxdol.base.DropboxPersister"><code class="docutils literal notranslate"><span class="pre">DropboxPersister</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="module_docs/dropboxdol/base.html#dropboxdol.base.DropboxTextFiles"><code class="docutils literal notranslate"><span class="pre">DropboxTextFiles</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="module_docs/dropboxdol/base.html#dropboxdol.base.DropboxTextStore"><code class="docutils literal notranslate"><span class="pre">DropboxTextStore</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="module_docs/dropboxdol/base.html#dropboxdol.base.create_or_get_shared_link"><code class="docutils literal notranslate"><span class="pre">create_or_get_shared_link()</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="module_docs/dropboxdol/base.html#dropboxdol.base.dropbox_link"><code class="docutils literal notranslate"><span class="pre">dropbox_link()</span></code></a></li>
-</ul>
-</li>
-<li class="toctree-l1"><a class="reference internal" href="module_docs/dropboxdol/connection.html">dropboxdol.connection</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="module_docs/dropboxdol/connection.html#dropboxdol.connection.copy_config_file"><code class="docutils literal notranslate"><span class="pre">copy_config_file()</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="module_docs/dropboxdol/connection.html#dropboxdol.connection.create_config_file"><code class="docutils literal notranslate"><span class="pre">create_config_file()</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="module_docs/dropboxdol/connection.html#dropboxdol.connection.get_client"><code class="docutils literal notranslate"><span class="pre">get_client()</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="module_docs/dropboxdol/connection.html#dropboxdol.connection.get_client_from_args"><code class="docutils literal notranslate"><span class="pre">get_client_from_args()</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="module_docs/dropboxdol/connection.html#dropboxdol.connection.get_client_from_config_file"><code class="docutils literal notranslate"><span class="pre">get_client_from_config_file()</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="module_docs/dropboxdol/connection.html#dropboxdol.connection.get_client_from_environment_vars"><code class="docutils literal notranslate"><span class="pre">get_client_from_environment_vars()</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="module_docs/dropboxdol/connection.html#dropboxdol.connection.get_envvar_if_upper_case_and_exists"><code class="docutils literal notranslate"><span class="pre">get_envvar_if_upper_case_and_exists()</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="module_docs/dropboxdol/connection.html#dropboxdol.connection.get_tokens_interactive"><code class="docutils literal notranslate"><span class="pre">get_tokens_interactive()</span></code></a></li>
-</ul>
-</li>
-<li class="toctree-l1"><a class="reference internal" href="module_docs/dropboxdol/tests/base_test.html">dropboxdol.tests.base_test</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="module_docs/dropboxdol/tests/base_test.html#dropboxdol.tests.base_test.BaseKeyTupleStoreTest"><code class="docutils literal notranslate"><span class="pre">BaseKeyTupleStoreTest</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="module_docs/dropboxdol/tests/base_test.html#dropboxdol.tests.base_test.BasePersisterTest"><code class="docutils literal notranslate"><span class="pre">BasePersisterTest</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="module_docs/dropboxdol/tests/base_test.html#dropboxdol.tests.base_test.BaseStoreTest"><code class="docutils literal notranslate"><span class="pre">BaseStoreTest</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="module_docs/dropboxdol/tests/base_test.html#dropboxdol.tests.base_test.BaseTest"><code class="docutils literal notranslate"><span class="pre">BaseTest</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="module_docs/dropboxdol/tests/base_test.html#dropboxdol.tests.base_test.BaseTupleStoreTest"><code class="docutils literal notranslate"><span class="pre">BaseTupleStoreTest</span></code></a></li>
-</ul>
-</li>
-<li class="toctree-l1"><a class="reference internal" href="module_docs/dropboxdol/tests/test_dropbox.html">dropboxdol.tests.test_dropbox</a></li>
-<li class="toctree-l1"><a class="reference internal" href="module_docs/dropboxdol/util.html">dropboxdol.util</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="module_docs/dropboxdol/util.html#dropboxdol.util.compute_dbx_file_path"><code class="docutils literal notranslate"><span class="pre">compute_dbx_file_path()</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="module_docs/dropboxdol/util.html#dropboxdol.util.get_config_val"><code class="docutils literal notranslate"><span class="pre">get_config_val()</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="module_docs/dropboxdol/util.html#dropboxdol.util.get_local_full_path"><code class="docutils literal notranslate"><span class="pre">get_local_full_path()</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="module_docs/dropboxdol/util.html#dropboxdol.util.modify_url_dl"><code class="docutils literal notranslate"><span class="pre">modify_url_dl()</span></code></a></li>
-</ul>
-</li>
-</ul>
-</div>
-</section>
-<section id="indices-and-tables">
-<h1>Indices and tables<a class="headerlink" href="#indices-and-tables" title="Link to this heading"></a></h1>
-<ul class="simple">
-<li><p><a class="reference internal" href="genindex.html"><span class="std std-ref">Index</span></a></p></li>
-<li><p><a class="reference internal" href="py-modindex.html"><span class="std std-ref">Module Index</span></a></p></li>
-<li><p><a class="reference internal" href="search.html"><span class="std std-ref">Search Page</span></a></p></li>
-</ul>
-<p>Release: 0.0.12</p>
-<p>Last change: Jul 24, 2026</p>
-</section>
-
-
-           </div>
-          </div>
-          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
-        <a href="module_docs/dropboxdol.html" class="btn btn-neutral float-right" title="dropboxdol" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
-    </div>
-
-  <hr/>
-
-  <div role="contentinfo">
-    <p></p>
-  </div>
-
-  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
-    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
-    provided by <a href="https://readthedocs.org">Read the Docs</a>.
-   
-
-</footer>
-        </div>
-      </div>
-    </section>
-  </div>
-  <script>
-      jQuery(function () {
-          SphinxRtdTheme.Navigation.enable(true);
-      });
-  </script> 
-
-</body>
+      <script src="_static/copybutton.js?v=fd10adb8"></script>
+      <script src="_static/shibuya.js?v=50760d75"></script></body>
 </html>

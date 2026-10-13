@@ -1,0 +1,22 @@
+# dropboxdol
+
+> dropbox with a simple (dict-like or list-like) interface
+
+
+## Pages
+
+- [dropboxdol](index.html.md): dropbox with a simple (dict-like or list-like) interface
+- [API reference](api.html.md): | &#96;dropboxdol&#96;   | Access dropbox with dict-like interface.   |
+- [dropboxdol](_autosummary/dropboxdol.html.md): Access dropbox with dict-like interface.
+- [dropboxdol.base](_autosummary/dropboxdol.base.html.md): Base functions for dropboxdol.
+- [dropboxdol.connection](_autosummary/dropboxdol.connection.html.md): Objects to connect to Dropbox.
+- [dropboxdol.util](_autosummary/dropboxdol.util.html.md): Utility functions for DropboxDOL.
+- [About this build](about-this-build.html.md): This documentation was built on &#42;&#42;2026-10-13 04:07 UTC&#42;&#42; from commit &lt;a href="https://github.com/i2m...
+
+## Optional
+
+- [dropboxdol.md](dropboxdol.md): Complete documentation in a single file.
+
+## Build
+
+- [build_info.json](build_info.json): build provenance (commit, version, tool versions, whether the docs match the package)

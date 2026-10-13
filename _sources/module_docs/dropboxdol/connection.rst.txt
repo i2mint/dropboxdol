@@ -1,4 +1,0 @@
-dropboxdol.connection
-=====================
-.. automodule:: dropboxdol.connection
-   :members:

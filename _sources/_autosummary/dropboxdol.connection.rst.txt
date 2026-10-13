@@ -1,0 +1,22 @@
+dropboxdol.connection
+=====================
+
+.. automodule:: dropboxdol.connection
+
+   
+   .. rubric:: Functions
+
+   .. autosummary::
+   
+      complete_config_file_with_refresh_token
+      config_file_to_dict
+      copy_config_file
+      create_config_file
+      create_or_edit_config_file
+      get_client
+      get_client_from_args
+      get_client_from_config_file
+      get_client_from_environment_vars
+      get_envvar_if_upper_case_and_exists
+      get_tokens_interactive
+   
