@@ -27,9 +27,16 @@ def test_rootdir_case_mismatch_lists_relative_keys(rootdir):
     assert list(s) == ["a.txt", "sub/b.txt"]
 
 
-def test_out_of_scope_ids_still_raise():
+def test_out_of_scope_ids_never_become_keys():
+    """An id outside the rootdir yields no (corrupted) key: dol >= the #82 fix raises
+    OutOfScopeKeyError on ``_key_of_id``, and iteration skips such ids (newer dol)."""
     from dol.errors import OutOfScopeKeyError
 
-    s = _store("/MyFolder/", ["/elsewhere/a.txt"])
+    s = _store("/MyFolder/", ["/elsewhere/a.txt", "/myfolder/b.txt"])
     with pytest.raises(OutOfScopeKeyError):
-        list(s)
+        s._key_of_id("/elsewhere/a.txt")
+    try:
+        keys = list(s)
+    except OutOfScopeKeyError:  # dol that still raises from iteration
+        return
+    assert keys == ["b.txt"]
