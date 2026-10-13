@@ -38,3 +38,10 @@ def test_contains_reraises_an_error_that_is_not_a_lookup_miss():
     )
     with pytest.raises(ApiError):
         "x" in s
+
+
+def test_getitem_refuses_a_download_that_did_not_answer_200():
+    s, con = _files()
+    con.files_download.return_value = (NS(), NS(status_code=500, content=b"error page"))
+    with pytest.raises(ValueError, match="HTTP 500"):
+        s["/r/a.txt"]

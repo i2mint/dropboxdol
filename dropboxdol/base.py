@@ -16,6 +16,9 @@ from dropboxdol.util import (
 from dropboxdol.connection import get_client, DFLT_CONFIG_FILE
 
 
+HTTP_OK = 200
+
+
 def create_or_get_shared_link(dbx: dropbox.Dropbox, dbx_file_path: str) -> str:
     """
     Create a shared link for the given Dropbox file path.
@@ -233,9 +236,10 @@ class DropboxPersister(Persister):
                 raise KeyError(f"Key doesn't exist: {k}")
             raise
 
-        if not contents_response.status_code:
+        if contents_response.status_code != HTTP_OK:
             raise ValueError(
-                "Response code wasn't 200 when trying to download a file (yet the file seems to exist)."
+                f"Download of {k!r} answered HTTP {contents_response.status_code}, "
+                f"not {HTTP_OK} (yet the file seems to exist)."
             )
 
         return contents_response.content
@@ -253,12 +257,6 @@ def _entry_is_dir(entry):
 
 def _entry_is_file(entry):
     return hasattr(entry, "is_downloadable")
-
-
-def _extend_path(path, extension):
-    extend_path = "/" + path + "/" + extension + "/"
-    extend_path.replace("//", "/")
-    return extend_path
 
 
 class DropboxLinkReaderWithToken(ReadOnlyMixin, DropboxPersister):
