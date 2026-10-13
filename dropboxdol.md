@@ -1,4 +1,4 @@
-> built 2026-10-13 04:07 UTC from ea3d07e (master) · dropboxdol 0.0.13. Details: build_info.json
+> built 2026-10-13 04:28 UTC from df831a4 (master) · dropboxdol 0.0.14. Details: build_info.json
 
 # index.html.md
 
@@ -526,18 +526,18 @@ is appended.
 
 # About this build
 
-This documentation was built on **2026-10-13 04:07 UTC** from commit <a href="https://github.com/i2mint/dropboxdol/commit/ea3d07eda1248494f5c0ac8681b38091ab3e9ecc"><code>ea3d07e</code></a> on branch <code>master</code>, for **dropboxdol 0.0.13** (from <code>pyproject.toml</code>).
+This documentation was built on **2026-10-13 04:28 UTC** from commit <a href="https://github.com/i2mint/dropboxdol/commit/df831a4bc914dc4e8d81ad219913021c73bbb00c"><code>df831a4</code></a> on branch <code>master</code>, for **dropboxdol 0.0.14** (from <code>pyproject.toml</code>).
 
 #### WARNING
 The documentation and the package may be misaligned:
 
-- The documented version (0.0.13) is behind the latest release on PyPI (0.0.14): `pip install dropboxdol` gives newer code than these docs describe.
+- The documented version (0.0.14) is behind the latest release on PyPI (0.0.15): `pip install dropboxdol` gives newer code than these docs describe.
 
 ## Source
 
 |                     |                                                                                                                                                          |
 |---------------------|----------------------------------------------------------------------------------------------------------------------------------------------------------|
-| Commit              | <a href="https://github.com/i2mint/dropboxdol/commit/ea3d07eda1248494f5c0ac8681b38091ab3e9ecc"><code>ea3d07eda1248494f5c0ac8681b38091ab3e9ecc</code></a> |
+| Commit              | <a href="https://github.com/i2mint/dropboxdol/commit/df831a4bc914dc4e8d81ad219913021c73bbb00c"><code>df831a4bc914dc4e8d81ad219913021c73bbb00c</code></a> |
 | Branch              | <code>master</code>                                                                                                                                      |
 | Tags at this commit | none                                                                                                                                                     |
 | Working tree        | clean                                                                                                                                                    |
@@ -548,9 +548,9 @@ The documentation and the package may be misaligned:
 |              |                                                                                            |
 |--------------|--------------------------------------------------------------------------------------------|
 | Repository   | <code>i2mint/dropboxdol</code>                                                             |
-| Run          | <a href="https://github.com/i2mint/dropboxdol/actions/runs/38344794337">38344794337</a>    |
+| Run          | <a href="https://github.com/i2mint/dropboxdol/actions/runs/38346472781">38346472781</a>    |
 | Ref          | <code>refs/heads/master</code>                                                             |
-| Event commit | <code>ea3d07eda1248494f5c0ac8681b38091ab3e9ecc</code> (in the history of the built commit) |
+| Event commit | <code>df831a4bc914dc4e8d81ad219913021c73bbb00c</code> (in the history of the built commit) |
 
 ## Tools
 
@@ -575,13 +575,13 @@ The documentation and the package may be misaligned:
 
 ## Package on PyPI
 
-Latest release: <a href="https://pypi.org/project/dropboxdol/0.0.14/">0.0.14</a>, newer than the documented version (0.0.13).
+Latest release: <a href="https://pypi.org/project/dropboxdol/0.0.15/">0.0.15</a>, newer than the documented version (0.0.14).
 
 ## Reproduce
 
 ```bash
 git clone https://github.com/i2mint/dropboxdol && cd dropboxdol
-git checkout ea3d07eda1248494f5c0ac8681b38091ab3e9ecc
+git checkout df831a4bc914dc4e8d81ad219913021c73bbb00c
 pip install "epythet==0.2.13"
 epythet quickstart . --ignore tests/ scrap/ examples/
 ```
