@@ -336,6 +336,16 @@ class DropboxFiles(PrefixRelativizationMixin, Store, DropboxPersister):
         super().__init__(store=DropboxPersister(*args, **kwargs))
         self._prefix = self.store._prefix
 
+    def _key_of_id(self, _id):
+        # Dropbox paths are case-insensitive, and ``path_display`` may be cased
+        # differently from the rootdir as typed ('/MyFolder/' vs '/myfolder/a.txt').
+        # Match the prefix case-insensitively (slicing by its length), and leave truly
+        # out-of-scope ids to dol, which raises OutOfScopeKeyError (i2mint/dol#82).
+        prefix = self._prefix
+        if prefix and _id[: len(prefix)].lower() == prefix.lower():
+            return _id[len(prefix) :]
+        return super()._key_of_id(_id)
+
 
 DropboxBinaryStore = DropboxFiles  # backwards compatibility
 
