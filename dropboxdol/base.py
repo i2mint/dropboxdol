@@ -4,6 +4,7 @@ from typing import Union
 
 import dropbox
 from dropbox.exceptions import ApiError, AuthError
+from dropbox.stone_validators import ValidationError as _PathValidationError
 from dropbox.sharing import SharedLinkSettings, RequestedVisibility
 from dropboxdol.util import (
     # get_access_token,
@@ -132,6 +133,15 @@ def _is_file_not_found_error(error_object):
     return False
 
 
+def _is_path_lookup_miss(error_object) -> bool:
+    """Whether a ``files_get_metadata`` ApiError means "no such path"."""
+    err = error_object.error
+    if not (hasattr(err, "is_path") and err.is_path()):
+        return False
+    path_err = err.get_path()
+    return path_err.is_not_found() or path_err.is_malformed_path()
+
+
 class DropboxPersister(Persister):
     """
     A persister for dropbox.
@@ -189,12 +199,31 @@ class DropboxPersister(Persister):
     # TODO: __len__ is taken from Persister, which iterates and counts. Not efficient. Find direct api for this!
 
     def __iter__(self):
-        r = self._con.files_list_folder(self._prefix)
-        yield from (x.path_display for x in r.entries)
-        cursor = r.cursor
-        if r.has_more:
-            r = self._con.files_list_folder_continue(cursor)
-            yield from (x.path_display for x in r.entries)
+        r = self._con.files_list_folder(self._prefix, **self._files_list_folder_kwargs)
+        while True:
+            # ``path_display`` is null for entries that aren't mounted: they have no
+            # path to address them by, so they can't be keys.
+            yield from (x.path_display for x in r.entries if x.path_display is not None)
+            if not r.has_more:
+                break
+            r = self._con.files_list_folder_continue(r.cursor)
+
+    def __contains__(self, k):
+        # Dropbox paths are case-insensitive: ask the server instead of scanning the
+        # listing (which is case-sensitive, and costs a full listing).
+        if not isinstance(k, str):
+            return False
+        try:
+            self._con.files_get_metadata(k)
+        except _PathValidationError:
+            # the SDK rejects, before any request, a key that isn't a valid path
+            # (e.g. 'a.txt' under the default rootdir ''): it can't be in the store
+            return False
+        except ApiError as e:
+            if _is_path_lookup_miss(e):
+                return False
+            raise
+        return True
 
     def __getitem__(self, k):
         try:
@@ -336,12 +365,44 @@ class DropboxFiles(PrefixRelativizationMixin, Store, DropboxPersister):
         super().__init__(store=DropboxPersister(*args, **kwargs))
         self._prefix = self.store._prefix
 
+    # Rootdirs that name a folder by id or namespace instead of by path.
+    _ID_ROOTDIR_PREFIXES = ("id:", "ns:")
+
+    @property
+    def _display_prefix(self):
+        """The prefix of the ids (``path_display``) that listing yields.
+
+        Same as the rootdir, except for ``id:``/``ns:`` rootdirs, which are accepted
+        by the API but never appear in ``path_display``: those are resolved, once,
+        to the folder's display path.
+        """
+        prefix = self._prefix
+        if not prefix.startswith(self._ID_ROOTDIR_PREFIXES):
+            return prefix
+        try:
+            return self._resolved_display_prefix
+        except AttributeError:
+            pass
+        folder = prefix.rstrip("/")
+        path_display = getattr(
+            self.store._con.files_get_metadata(folder), "path_display", None
+        )
+        if path_display is None:
+            raise ValueError(
+                f"Can't resolve rootdir {prefix!r} to a path: Dropbox returned no "
+                "path_display for it. Use a path rootdir (e.g. '/MyFolder/') instead."
+            )
+        self._resolved_display_prefix = path_display.rstrip("/") + (
+            "/" if prefix.endswith("/") else ""
+        )
+        return self._resolved_display_prefix
+
     def _key_of_id(self, _id):
         # Dropbox paths are case-insensitive, and ``path_display`` may be cased
         # differently from the rootdir as typed ('/MyFolder/' vs '/myfolder/a.txt').
         # Match the prefix case-insensitively (slicing by its length), and leave truly
         # out-of-scope ids to dol, which raises OutOfScopeKeyError (i2mint/dol#82).
-        prefix = self._prefix
+        prefix = self._display_prefix
         if prefix and _id[: len(prefix)].lower() == prefix.lower():
             return _id[len(prefix) :]
         return super()._key_of_id(_id)
